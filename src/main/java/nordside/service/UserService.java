@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import static nordside.utils.ValidationUtil.checkNotFound;
 
 @Service("userService")
 //@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -43,10 +47,11 @@ public class UserService implements UserDetailsService {
 //        return userRepository.findById(id).orElse(null);
 //    }
 //
-//    public User getByEmail(String email) {
-//        Assert.notNull(email, "email is null, error");
-//        return checkNotFound(userRepository.getByEmail(email), email);
-//    }
+
+    public User getByEmail(String email) {
+        Assert.notNull(email, "email is null, error");
+        return checkNotFound(userRepository.getByEmail(email), email);
+    }
 //
 //    //@CacheEvict(value = "users", allEntries = true)
 //    @Transactional
