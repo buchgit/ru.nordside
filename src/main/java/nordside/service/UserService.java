@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import static nordside.utils.ValidationUtil.checkNotFound;
@@ -25,13 +26,13 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-//
-//    //@CacheEvict(value = "users", allEntries = true)
-//    public User create(User user) {
-//        Assert.notNull(user, "user is null, error");
-//        return prepareAndSave(user);
-//    }
-//
+
+    //@CacheEvict(value = "users", allEntries = true)
+    public User create(User user) {
+        Assert.notNull(user, "user is null, error");
+        return prepareAndSave(user);
+    }
+
 //    //@CacheEvict(value = "users", allEntries = true)
 //    public User update(User user, int id) {
 //        Assert.notNull(user, "user is null, error");
@@ -68,15 +69,16 @@ public class UserService implements UserDetailsService {
         }
         return new LoggedUser(user);
     }
-//
-//    public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
-//        String password = user.getPassword();
-//        user.setPassword(StringUtils.hasText(password) ? passwordEncoder.encode(password) : password);
-//        user.setEmail(user.getEmail().toLowerCase());
-//        return user;
-//    }
-//
-//    private User prepareAndSave(User user) {
-//        return userRepository.save(prepareToSave(user, passwordEncoder));
-//    }
+
+
+    public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
+        String password = user.getPassword();
+        user.setPassword(StringUtils.hasText(password) ? passwordEncoder.encode(password) : password);
+        user.setEmail(user.getEmail().toLowerCase());
+        return user;
+    }
+
+    private User prepareAndSave(User user) {
+        return userRepository.save(prepareToSave(user, passwordEncoder));
+    }
 }
