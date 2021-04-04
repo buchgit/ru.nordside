@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(UserController.REST_URL)
 public class UserController {
 
-    static final String REST_URL = "/user";
+    static final String REST_URL = "/rest/user";
 
     private UserService userService;
 
@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/email", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/registration/email", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByEmail(@RequestParam String email) {
         return userService.getByEmail(email);
     }
