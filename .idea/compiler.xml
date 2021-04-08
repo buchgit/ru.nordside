@@ -9,5 +9,6 @@
         <module name="ru.nordside" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="15" />
   </component>
 </project>

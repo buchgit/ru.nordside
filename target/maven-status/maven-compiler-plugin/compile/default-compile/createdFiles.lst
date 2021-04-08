@@ -1,0 +1,13 @@
+nordside\web\RootController.class
+nordside\web\UserController.class
+nordside\model\Role.class
+nordside\exceptions\NotFoundException.class
+nordside\utils\ValidationUtil.class
+nordside\model\User.class
+nordside\service\UserService.class
+nordside\repository\UserRepository.class
+nordside\web\json\JsonUtil.class
+nordside\model\AbstractBaseEntity.class
+nordside\model\AbstractNamedEntity.class
+nordside\web\json\JacksonObjectMapper.class
+nordside\LoggedUser.class
