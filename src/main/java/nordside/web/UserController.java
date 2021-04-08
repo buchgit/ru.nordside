@@ -24,7 +24,8 @@ import static nordside.utils.ValidationUtil.getStringResponseEntity;
 @RequestMapping(UserController.REST_URL)
 public class UserController {
 
-    static final String REST_URL = "/rest/user";
+    //static final String REST_URL = "/rest/user";
+    static final String REST_URL = "rest/user/";
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -35,7 +36,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
+    //@PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "registration", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> create(@Valid @RequestBody User user, BindingResult result) {
         if (result.hasErrors()) {
             return getStringResponseEntity(result, logger);
