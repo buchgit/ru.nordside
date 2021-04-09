@@ -15,7 +15,7 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/nordside</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="postgres@heroku@nordside" uuid="aac93fc9-811a-43ca-8eab-61736d6fc278">
+    <data-source source="LOCAL" name="heroku" uuid="aac93fc9-811a-43ca-8eab-61736d6fc278">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <remarks>for application ru.nordside at heroku.com</remarks>
@@ -23,8 +23,7 @@
       <jdbc-url>jdbc:postgresql://ec2-54-155-35-88.eu-west-1.compute.amazonaws.com:5432/dffipvdivtqnm7</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <driver-properties>
-        <property name="ssl" value="true" />
-        <property name="sslfactory" value="org.postgresql.ssl.NoValidatingFactory" />
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
       </driver-properties>
     </data-source>
   </component>
