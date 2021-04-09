@@ -202,7 +202,7 @@
         </dependency>
     </dependencies>
     
-    <profiles>
+<!--    <profiles>-->
 <!--        <profile>-->
 <!--            <id>hsqldb</id>-->
 <!--            <dependencies>-->
@@ -269,7 +269,36 @@
 <!--            </dependencies>-->
 <!--        </profile>-->
         
-    </profiles>
+<!--    </profiles>-->
+    
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <!--https://github.com/jsimone/webapp-runner#using-without-memcached-or-redis-->
+                                    <artifactItem>
+                                        <groupId>com.heroku</groupId>
+                                        <artifactId>webapp-runner-main</artifactId>
+                                        <version>9.0.36.1</version>
+                                        <destFileName>webapp-runner.jar</destFileName>
+                                    </artifactItem>
+                                </artifactItems>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
     
     <dependencyManagement>
         <dependencies>
