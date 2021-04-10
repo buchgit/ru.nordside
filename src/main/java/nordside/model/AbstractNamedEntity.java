@@ -28,8 +28,4 @@ public class AbstractNamedEntity extends AbstractBaseEntity {
         return this.name;
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString() + '(' + name + ')';
-//    }
 }

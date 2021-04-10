@@ -53,7 +53,8 @@ public class UserService implements UserDetailsService {
         Assert.notNull(email, "email is null, error");
         return checkNotFound(userRepository.getByEmail(email), email);
     }
-//
+
+    //
 //    //@CacheEvict(value = "users", allEntries = true)
 //    @Transactional
 //    public void enable(int id, boolean enabled) {
