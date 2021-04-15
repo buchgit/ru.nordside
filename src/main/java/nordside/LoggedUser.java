@@ -1,6 +1,6 @@
 package nordside;
 
-import nordside.model.User;
+import nordside.model.user.User;
 
 public class LoggedUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;

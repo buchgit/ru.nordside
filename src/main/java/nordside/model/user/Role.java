@@ -1,4 +1,4 @@
-package nordside.model;
+package nordside.model.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

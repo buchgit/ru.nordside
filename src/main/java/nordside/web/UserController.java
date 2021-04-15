@@ -1,7 +1,7 @@
 package nordside.web;
 
-import nordside.model.Role;
-import nordside.model.User;
+import nordside.model.user.Role;
+import nordside.model.user.User;
 import nordside.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

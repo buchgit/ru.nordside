@@ -1,6 +1,7 @@
-package nordside.model;
+package nordside.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nordside.model.AbstractNamedEntity;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 

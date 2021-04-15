@@ -1,7 +1,7 @@
 package nordside.service;
 
 import nordside.LoggedUser;
-import nordside.model.User;
+import nordside.model.user.User;
 import nordside.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import static nordside.utils.ValidationUtil.checkNotFound;
 

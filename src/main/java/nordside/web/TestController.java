@@ -1,6 +1,6 @@
 package nordside.web;
 
-import nordside.model.User;
+import nordside.model.user.User;
 import nordside.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
