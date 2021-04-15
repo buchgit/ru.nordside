@@ -2,11 +2,26 @@ package nordside.model.nomenclature;
 
 import nordside.model.AbstractNamedEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "base_unit")
 public class BaseUnit extends AbstractNamedEntity {
 
+    @Column(name = "code")
+    @NotNull
     private String code;   //код в 1С
+
+    @Column(name = "weight")
     private double weight;
+
+    @Column(name = "pack_volume")
     private double packVolume;
+
+    @Column(name = "coefficient")
     private double coefficient;
 
     public BaseUnit() {

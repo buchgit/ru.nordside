@@ -1,4 +1,3 @@
--- DROP TABLE dishes IF EXISTS;
 -- DROP TABLE menus IF EXISTS;
 -- DROP TABLE votes IF EXISTS;
 -- DROP TABLE restaurants IF EXISTS;
@@ -63,3 +62,4 @@ CREATE TABLE user_roles
 --     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 -- );
 -- CREATE UNIQUE INDEX votes_unique_user_date_idx ON votes (user_id, date);
+
