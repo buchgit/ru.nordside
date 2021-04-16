@@ -2,60 +2,56 @@ package nordside.model.nomenclature;
 
 import nordside.model.AbstractNamedEntity;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "nomenclature")
 public class Nomenclature extends AbstractNamedEntity {
 
-    private Unit unit;
-    private Unit pack;
-
+    @Column
     private String fullName;
 
+    @Column
     private String imageIndex;
-    private String category;
+
+    @Column
+    @OneToOne
+    @JoinColumn(columnDefinition = "nomenclature_id",nullable = false)
     private Nomenclature parent;
+
+    @Column
+    @OneToOne
+    @JoinColumn(columnDefinition = "nomenclature_group_id",nullable = false)
     private NomenclatureGroup nomenclatureGroup;
 
+    @Column
     private String productCountry;
+
+    @Column
     private String description;
 
-    public Nomenclature(Unit unit, Unit pack, String fullName, String imageIndex, String category, Nomenclature parent, NomenclatureGroup nomenclatureGroup, String productCountry, String description) {
-        this.unit = unit;
-        this.pack = pack;
+    public Nomenclature(String fullName, String imageIndex,  Nomenclature parent, NomenclatureGroup nomenclatureGroup, String productCountry, String description) {
         this.fullName = fullName;
         this.imageIndex = imageIndex;
-        this.category = category;
         this.parent = parent;
         this.nomenclatureGroup = nomenclatureGroup;
         this.productCountry = productCountry;
         this.description = description;
     }
 
-    public Nomenclature(Integer id, String name, Unit unit, Unit pack, String fullName, String imageIndex, String category, Nomenclature parent, NomenclatureGroup nomenclatureGroup, String productCountry, String description) {
+    public Nomenclature(Integer id, String name, String fullName, String imageIndex,  Nomenclature parent, NomenclatureGroup nomenclatureGroup, String productCountry, String description) {
         super(id, name);
-        this.unit = unit;
-        this.pack = pack;
         this.fullName = fullName;
         this.imageIndex = imageIndex;
-        this.category = category;
         this.parent = parent;
         this.nomenclatureGroup = nomenclatureGroup;
         this.productCountry = productCountry;
         this.description = description;
     }
 
-    public Unit getUnit() {
-        return unit;
-    }
+    public Nomenclature() {
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
-    }
-
-    public Unit getPack() {
-        return pack;
-    }
-
-    public void setPack(Unit pack) {
-        this.pack = pack;
     }
 
     public String getFullName() {
@@ -72,14 +68,6 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public void setImageIndex(String imageIndex) {
         this.imageIndex = imageIndex;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Nomenclature getParent() {

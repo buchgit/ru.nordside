@@ -1,20 +1,36 @@
 package nordside.model.nomenclature;
 
+import nordside.model.AbstractNamedEntity;
 
-public class Unit extends BaseUnit {
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "unit")
+public class Unit extends AbstractNamedEntity {
+
+    @Column
+    @OneToOne
+    @JoinColumn(columnDefinition = "id")
     private Nomenclature owner;
 
-    public Unit(Integer id, String name, String code, double weight, double packVolume, double coefficient, Nomenclature owner) {
-        super(id, name, code, weight, packVolume, coefficient);
-        this.owner = owner;
+    @Column
+    private double weight;
+
+    @Column
+    private double value;//объем
+
+    @Column
+    private double coefficient;
+
+    public Unit() {
     }
 
-    public Nomenclature getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Nomenclature owner) {
+    public Unit(Integer id, String name, Nomenclature owner, double weight, double value, double coefficient) {
+        super(id, name);
         this.owner = owner;
+        this.weight = weight;
+        this.value = value;
+        this.coefficient = coefficient;
     }
 }

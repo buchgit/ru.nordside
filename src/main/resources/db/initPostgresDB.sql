@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS base_unit;
+DROP TABLE IF EXISTS unit;
+DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
@@ -24,12 +25,26 @@ CREATE TABLE user_roles
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE base_unit
+CREATE TABLE unit
 (
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name        VARCHAR NOT NULL,
+    owner       INTEGER,
     code        VARCHAR NOT NULL,
     weight      DOUBLE PRECISION,
-    pack_volume DOUBLE PRECISION,
-    coefficient DOUBLE PRECISION
+    volume      DOUBLE PRECISION,
+    coefficient DOUBLE PRECISION,
+    FOREIGN KEY (owner) REFERENCES nomenclature(id) ON DELETE CASCADE
+);
+
+CREATE TABLE nomenclature
+(
+    id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name              VARCHAR NOT NULL,
+    fullName          VARCHAR,
+    imageIndex        VARCHAR,
+    parent            INTEGER,
+    nomenclatureGroup INTEGER,
+    productCountry    VARCHAR,
+    description       VARCHAR
 );
