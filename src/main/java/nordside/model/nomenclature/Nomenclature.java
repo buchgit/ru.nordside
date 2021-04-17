@@ -1,6 +1,7 @@
 package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nordside.model.AbstractNamedEntity;
 
 import javax.persistence.*;
@@ -18,8 +19,12 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column(name = "image_index")
     private String imageIndex;
 
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Unit unit;
 
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Unit packUnit;
 
     @Column(name = "product_country")
@@ -28,10 +33,14 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String description;
 
-    public Nomenclature(Integer id, String name,
-                        String fullName, String imageIndex,
-                        Unit unit, Unit packUnit, String code,
-                        String productCountry, String description) {
+    @Column
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "nomenclature_group")
+    private NomenclatureGroup nomenclatureGroup;
+
+    public Nomenclature(Integer id, String name, String fullName, String imageIndex,
+                        Unit unit, Unit packUnit, String code, String productCountry, String description) {
         super(id, name);
         this.fullName = fullName;
         this.imageIndex = imageIndex;
@@ -62,8 +71,6 @@ public class Nomenclature extends AbstractNamedEntity {
         this.imageIndex = imageIndex;
     }
 
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
     public Unit getUnit() {
         return unit;
     }
@@ -72,10 +79,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.unit = unit;
     }
 
-    @Column(name = "pack_unit")
-    @JsonBackReference
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Unit getPackUnit() {
+    public  Unit getPackUnit(){
         return packUnit;
     }
 

@@ -10,6 +10,9 @@ import javax.persistence.*;
 @Table(name = "unit")
 public class Unit extends AbstractNamedEntity {
 
+    @OneToOne
+    @JsonBackReference
+    @JoinColumn(name = "owner")
     private Nomenclature owner;
 
     @Column
@@ -32,10 +35,7 @@ public class Unit extends AbstractNamedEntity {
         this.coefficient = coefficient;
     }
 
-    @Column
-    @OneToOne
-    @JsonBackReference
-    @JoinColumn(name = "owner")
+
     public Nomenclature getOwner() {
         return owner;
     }

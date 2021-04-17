@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS unit;
 DROP TABLE IF EXISTS nomenclature;
+DROP TABLE IF EXISTS nomenclature_group;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
@@ -25,17 +26,27 @@ CREATE TABLE user_roles
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
+CREATE TABLE nomenclature_group
+(
+    id    integer primary key default nextval('global_seq'),
+    name  varchar not null,
+    level integer,
+    code  varchar
+);
+
 CREATE TABLE nomenclature
 (
-    id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name            VARCHAR NOT NULL,
-    fullName        VARCHAR,
-    unit            INTEGER,
-    pack_unit       INTEGER,
-    code            VARCHAR,
-    image_index     VARCHAR,
-    product_country VARCHAR,
-    description     VARCHAR
+    id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name               VARCHAR NOT NULL,
+    fullName           VARCHAR,
+    unit               INTEGER,
+    pack_unit          INTEGER,
+    code               VARCHAR,
+    image_index        VARCHAR,
+    product_country    VARCHAR,
+    description        VARCHAR,
+    nomenclature_group INTEGER,
+    foreign key (nomenclature_group) references nomenclature_group(id)
 );
 
 CREATE TABLE unit
