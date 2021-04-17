@@ -25,6 +25,19 @@ CREATE TABLE user_roles
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
+CREATE TABLE nomenclature
+(
+    id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name            VARCHAR NOT NULL,
+    fullName        VARCHAR,
+    unit            INTEGER,
+    pack_unit       INTEGER,
+    code            VARCHAR,
+    image_index     VARCHAR,
+    product_country VARCHAR,
+    description     VARCHAR
+);
+
 CREATE TABLE unit
 (
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
@@ -34,17 +47,6 @@ CREATE TABLE unit
     weight      DOUBLE PRECISION,
     volume      DOUBLE PRECISION,
     coefficient DOUBLE PRECISION,
-    FOREIGN KEY (owner) REFERENCES nomenclature(id) ON DELETE CASCADE
+    FOREIGN KEY (owner) REFERENCES nomenclature (id) ON DELETE CASCADE
 );
 
-CREATE TABLE nomenclature
-(
-    id                INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name              VARCHAR NOT NULL,
-    fullName          VARCHAR,
-    imageIndex        VARCHAR,
-    parent            INTEGER,
-    nomenclatureGroup INTEGER,
-    productCountry    VARCHAR,
-    description       VARCHAR
-);

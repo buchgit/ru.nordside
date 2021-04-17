@@ -9,11 +9,15 @@ import javax.persistence.Table;
 @Table(name = "nomenclature_group")
 public class NomenclatureGroup extends AbstractNamedEntity {
 
+    private int level;
+
+
     public NomenclatureGroup() {
     }
 
-    public NomenclatureGroup(Integer id, String name) {
+    public NomenclatureGroup(Integer id, String name, int level) {
         super(id, name);
+        this.level = level;
     }
 
 }

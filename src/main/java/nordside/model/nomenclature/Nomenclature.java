@@ -1,51 +1,43 @@
 package nordside.model.nomenclature;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import nordside.model.AbstractNamedEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "nomenclature")
 public class Nomenclature extends AbstractNamedEntity {
 
     @Column
+    private String code; //from 1C
+
+    @Column
     private String fullName;
 
-    @Column
+    @Column(name = "image_index")
     private String imageIndex;
 
-    @Column
-    @OneToOne
-    @JoinColumn(columnDefinition = "nomenclature_id",nullable = false)
-    private Nomenclature parent;
+    private Unit unit;
 
-    @Column
-    @OneToOne
-    @JoinColumn(columnDefinition = "nomenclature_group_id",nullable = false)
-    private NomenclatureGroup nomenclatureGroup;
+    private Unit packUnit;
 
-    @Column
+    @Column(name = "product_country")
     private String productCountry;
 
     @Column
     private String description;
 
-    public Nomenclature(String fullName, String imageIndex,  Nomenclature parent, NomenclatureGroup nomenclatureGroup, String productCountry, String description) {
-        this.fullName = fullName;
-        this.imageIndex = imageIndex;
-        this.parent = parent;
-        this.nomenclatureGroup = nomenclatureGroup;
-        this.productCountry = productCountry;
-        this.description = description;
-    }
-
-    public Nomenclature(Integer id, String name, String fullName, String imageIndex,  Nomenclature parent, NomenclatureGroup nomenclatureGroup, String productCountry, String description) {
+    public Nomenclature(Integer id, String name,
+                        String fullName, String imageIndex,
+                        Unit unit, Unit packUnit, String code,
+                        String productCountry, String description) {
         super(id, name);
         this.fullName = fullName;
         this.imageIndex = imageIndex;
-        this.parent = parent;
-        this.nomenclatureGroup = nomenclatureGroup;
+        this.unit = unit;
+        this.packUnit = packUnit;
+        this.code = code;
         this.productCountry = productCountry;
         this.description = description;
     }
@@ -70,20 +62,25 @@ public class Nomenclature extends AbstractNamedEntity {
         this.imageIndex = imageIndex;
     }
 
-    public Nomenclature getParent() {
-        return parent;
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    public Unit getUnit() {
+        return unit;
     }
 
-    public void setParent(Nomenclature parent) {
-        this.parent = parent;
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
-    public NomenclatureGroup getNomenclatureGroup() {
-        return nomenclatureGroup;
+    @Column(name = "pack_unit")
+    @JsonBackReference
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Unit getPackUnit() {
+        return packUnit;
     }
 
-    public void setNomenclatureGroup(NomenclatureGroup nomenclatureGroup) {
-        this.nomenclatureGroup = nomenclatureGroup;
+    public void setPackUnit(Unit packUnit) {
+        this.packUnit = packUnit;
     }
 
     public String getProductCountry() {
@@ -100,5 +97,13 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
