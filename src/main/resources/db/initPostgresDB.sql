@@ -1,20 +1,29 @@
 DROP TABLE IF EXISTS unit;
 DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS nomenclature_group;
+-- drop table if exists user_price_variant;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
+drop table if exists price_variant;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
 
+create table price_variant
+(
+    id   Integer primary key default nextval('global_seq'),
+    name varchar not null
+);
+
 CREATE TABLE users
 (
-    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name       VARCHAR                           NOT NULL,
-    email      VARCHAR                           NOT NULL,
-    password   VARCHAR                           NOT NULL,
-    registered TIMESTAMP           DEFAULT now() NOT NULL,
-    enabled    BOOL                DEFAULT TRUE  NOT NULL
+    id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name          VARCHAR                           NOT NULL,
+    email         VARCHAR                           NOT NULL,
+    password      VARCHAR                           NOT NULL,
+    registered    TIMESTAMP           DEFAULT now() NOT NULL,
+    price_variant INTEGER                           not null,
+    enabled       BOOL                DEFAULT TRUE  NOT NULL
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
@@ -60,4 +69,16 @@ CREATE TABLE unit
     coefficient DOUBLE PRECISION,
     FOREIGN KEY (owner) REFERENCES nomenclature (id) ON DELETE CASCADE
 );
+
+
+
+
+-- create table user_price_variant(
+--     id integer primary key default nextval('global_seq'),
+--     name varchar not null ,
+--     user_id integer not null,
+--     price_variant integer not null ,
+--     foreign key (user_id)references users(id),
+--     foreign key (price_variant) references price_variant (id)
+-- );
 

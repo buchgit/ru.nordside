@@ -1,9 +1,24 @@
 package nordside.model.price;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import nordside.model.user.User;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user_price_variant")
 public class UserPriceVariant {
+
+    @OneToOne
+    @JsonBackReference
+    @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne
+    @JsonBackReference
+    @MapsId
+    @JoinColumn(name = "price_variant")
     private PriceVariant priceVariant;
 
     public UserPriceVariant() {

@@ -1,7 +1,10 @@
 package nordside.model.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nordside.model.AbstractNamedEntity;
+import nordside.model.price.PriceVariant;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
@@ -47,6 +50,11 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)
     private Set<Role> roles;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name ="price_variant")
+    private PriceVariant price_variant;
 
     public User() {
     }
