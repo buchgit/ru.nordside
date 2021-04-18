@@ -1,9 +1,12 @@
 package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nordside.model.AbstractNamedEntity;
+import nordside.model.price.PriceTable;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -23,6 +26,10 @@ public class Unit extends AbstractNamedEntity {
 
     @Column
     private double coefficient;
+
+    @OneToMany(mappedBy = "unit",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JsonManagedReference
+    private Set<PriceTable> priceTable;
 
     public Unit() {
     }

@@ -1,9 +1,11 @@
 DELETE FROM user_roles;
 DELETE FROM users;
+delete from price_table;
 DELETE FROM unit;
 delete from price_variant;
 DELETE From nomenclature;
 DELETE FROM nomenclature_group;
+
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 -- 100000
@@ -29,3 +31,10 @@ values ('панель 05*250*2700 белый матовый', 'панель 05*2
 INSERT INTO unit (name, code, owner, weight, volume, coefficient)
 VALUES ('шт', '000016355', (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 1.08, 0.00, 0.675),
        ('упак', '000016351', (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 10.8, 0.00, 6.75);
+
+-- 100007
+insert into price_table(price_variant,nomenclature,unit,price)
+values ((select id from price_variant where name='test'),
+        (select id from nomenclature  where name='панель 05*250*2700 белый матовый'),
+        (select id from unit where name='шт'),
+        1.12);

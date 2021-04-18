@@ -1,10 +1,11 @@
+drop table if exists price_table;
 DROP TABLE IF EXISTS unit;
 DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS nomenclature_group;
--- drop table if exists user_price_variant;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 drop table if exists price_variant;
+
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
@@ -70,15 +71,14 @@ CREATE TABLE unit
     FOREIGN KEY (owner) REFERENCES nomenclature (id) ON DELETE CASCADE
 );
 
-
-
-
--- create table user_price_variant(
---     id integer primary key default nextval('global_seq'),
---     name varchar not null ,
---     user_id integer not null,
---     price_variant integer not null ,
---     foreign key (user_id)references users(id),
---     foreign key (price_variant) references price_variant (id)
--- );
+create table price_table(
+    id integer primary key default nextval('global_seq'),
+    nomenclature integer not null,
+    price_variant integer not null ,
+    unit integer not null ,
+    price double precision,
+    foreign key (nomenclature)references nomenclature(id),
+    foreign key (price_variant) references price_variant (id),
+    foreign key (unit) references unit(id)
+);
 
