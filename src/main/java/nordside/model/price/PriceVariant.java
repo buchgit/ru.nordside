@@ -27,5 +27,19 @@ public class PriceVariant extends AbstractNamedEntity {
         super(id, name);
     }
 
+    public Set<User> getUserList() {
+        return userList;
+    }
 
+    public void setUserList(Set<User> userList) {
+        this.userList = userList;
+    }
+
+    public Set<PriceTable> getPriceTable() {
+        return priceTable;
+    }
+
+    public void setPriceTable(Set<PriceTable> priceTable) {
+        this.priceTable = priceTable;
+    }
 }

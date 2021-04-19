@@ -10,11 +10,11 @@ DELETE FROM nomenclature_group;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 -- 100000
 insert into price_variant(name)
-values ('test');
+values ('default');
 -- 100001,100002
 INSERT INTO users (name, email, password,price_variant)
-VALUES ('User', 'user@gmail.com', '{noop}user',(SELECT ID FROM price_variant WHERE NAME = 'test')),
-       ('Admin', 'admin@gmail.com', '{noop}admin',(SELECT ID FROM price_variant WHERE NAME = 'test'));
+VALUES ('User', 'user@gmail.com', '{noop}user',(SELECT ID FROM price_variant WHERE NAME = 'default')),
+       ('Admin', 'admin@gmail.com', '{noop}admin',200000);
 --
 INSERT INTO user_roles (role, user_id)
 VALUES ('USER', (SELECT ID FROM USERS WHERE NAME = 'User')),
@@ -34,7 +34,7 @@ VALUES ('шт', '000016355', (SELECT ID FROM nomenclature WHERE NAME = 'пане
 
 -- 100007
 insert into price_table(price_variant,nomenclature,unit,price)
-values ((select id from price_variant where name='test'),
+values ((select id from price_variant where name='default'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый'),
         (select id from unit where name='шт'),
         1.12);

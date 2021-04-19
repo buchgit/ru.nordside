@@ -1,7 +1,10 @@
 package nordside.web;
 
+import nordside.model.nomenclature.Nomenclature;
+import nordside.model.price.PriceTable;
 import nordside.model.user.Role;
 import nordside.model.user.User;
+import nordside.service.PriceTableService;
 import nordside.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static nordside.utils.ValidationUtil.getStringResponseEntity;
@@ -27,6 +31,8 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserService userService;
+
+    private PriceTableService priceTableService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -52,6 +58,15 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-
+    @GetMapping(value = "nomenclature/all",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PriceTable> getFullPriceByUser(@Valid @RequestBody User user, BindingResult result){
+        if (result.hasErrors()){
+            //TO DO
+            logger.error("error user binding ");
+            return null;
+        }else{
+            return priceTableService.getFullPriceByUser(user);
+        }
+    }
 
 }
