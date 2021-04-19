@@ -12,8 +12,8 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "unit")
-public class Unit extends AbstractNamedEntity {
+@Table(name = "pack_unit")
+public class PackUnit extends AbstractNamedEntity {
 
     @OneToOne
     @JsonBackReference
@@ -30,21 +30,16 @@ public class Unit extends AbstractNamedEntity {
     @Column
     private double coefficient;
 
-    @OneToMany(mappedBy = "unit",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    //@JsonManagedReference
-    private Set<PriceTable> priceTable;
-
-    public Unit() {
+    public PackUnit() {
     }
 
-    public Unit(Integer id, String name, Nomenclature owner, double weight, double volume, double coefficient) {
+    public PackUnit(Integer id, String name, Nomenclature owner, double weight, double volume, double coefficient) {
         super(id, name);
         this.owner = owner;
         this.weight = weight;
         this.volume = volume;
         this.coefficient = coefficient;
     }
-
 
     public Nomenclature getOwner() {
         return owner;

@@ -1,5 +1,6 @@
 drop table if exists price_table;
 DROP TABLE IF EXISTS unit;
+DROP TABLE IF EXISTS pack_unit;
 DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS nomenclature_group;
 DROP TABLE IF EXISTS user_roles;
@@ -63,12 +64,24 @@ CREATE TABLE unit
 (
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name        VARCHAR NOT NULL,
-    owner       INTEGER,
+    owner_id    INTEGER,
     code        VARCHAR NOT NULL,
     weight      DOUBLE PRECISION,
     volume      DOUBLE PRECISION,
     coefficient DOUBLE PRECISION,
-    FOREIGN KEY (owner) REFERENCES nomenclature (id) ON DELETE CASCADE
+    FOREIGN KEY (owner_id) REFERENCES nomenclature (id) ON DELETE CASCADE
+);
+
+CREATE TABLE pack_unit
+(
+    id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name        VARCHAR NOT NULL,
+    owner_id    INTEGER,
+    code        VARCHAR NOT NULL,
+    weight      DOUBLE PRECISION,
+    volume      DOUBLE PRECISION,
+    coefficient DOUBLE PRECISION,
+    FOREIGN KEY (owner_id) REFERENCES nomenclature (id) ON DELETE CASCADE
 );
 
 create table price_table(

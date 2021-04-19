@@ -1,6 +1,5 @@
 package nordside.model.nomenclature;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
@@ -27,7 +26,7 @@ public class Nomenclature extends AbstractNamedEntity {
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Unit packUnit;
+    private PackUnit packUnit;
 
     @Column(name = "product_country")
     private String productCountry;
@@ -35,18 +34,17 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String description;
 
-    @Column
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference
     @JoinColumn(name = "nomenclature_group")
     private NomenclatureGroup nomenclatureGroup;
 
     @OneToMany(mappedBy = "nomenclature",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JsonManagedReference
+    //@JsonManagedReference
     private Set<PriceTable> priceTable;
 
     public Nomenclature(Integer id, String name, String fullName, String imageIndex,
-                        Unit unit, Unit packUnit, String code, String productCountry, String description) {
+                        Unit unit, PackUnit packUnit, String code, String productCountry, String description) {
         super(id, name);
         this.fullName = fullName;
         this.imageIndex = imageIndex;
@@ -85,11 +83,11 @@ public class Nomenclature extends AbstractNamedEntity {
         this.unit = unit;
     }
 
-    public  Unit getPackUnit(){
+    public  PackUnit getPackUnit(){
         return packUnit;
     }
 
-    public void setPackUnit(Unit packUnit) {
+    public void setPackUnit(PackUnit packUnit) {
         this.packUnit = packUnit;
     }
 

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "nomenclature_group")
@@ -17,9 +18,9 @@ public class NomenclatureGroup extends AbstractNamedEntity {
     @Column
     private int level;
 
-    @OneToMany(mappedBy = "nomenclature_group")
-    @JsonManagedReference
-    private List<Nomenclature> nomenclatureList;
+    @OneToMany(mappedBy = "nomenclatureGroup")
+    @JsonBackReference
+    private Set<Nomenclature> nomenclatureSet;
 
     @Column
     private String code;
@@ -41,12 +42,12 @@ public class NomenclatureGroup extends AbstractNamedEntity {
         this.level = level;
     }
 
-    public List<Nomenclature> getNomenclatureList() {
-        return nomenclatureList;
+    public Set<Nomenclature> getNomenclatureSet() {
+        return nomenclatureSet;
     }
 
-    public void setNomenclatureList(List<Nomenclature> nomenclatureList) {
-        this.nomenclatureList = nomenclatureList;
+    public void setNomenclatureSet(Set<Nomenclature> nomenclatureSet) {
+        this.nomenclatureSet = nomenclatureSet;
     }
 
     public String getCode() {

@@ -35,8 +35,9 @@ public class UserController {
     private PriceTableService priceTableService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PriceTableService priceTableService) {
         this.userService = userService;
+        this.priceTableService = priceTableService;
     }
 
     @PostMapping(value = "registration", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -58,15 +59,24 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-    @GetMapping(value = "nomenclature/all",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PriceTable> getFullPriceByUser(@Valid @RequestBody User user, BindingResult result){
-        if (result.hasErrors()){
-            //TO DO
-            logger.error("error user binding ");
-            return null;
-        }else{
-            return priceTableService.getFullPriceByUser(user);
-        }
+    @GetMapping(value = "nomenclature/all")
+//    public Integer getFullPriceByUser(@Valid @RequestBody User user, BindingResult result){
+//        if (result.hasErrors()){
+//            //TO DO
+//            logger.error("error user binding ");
+//            return 111;
+//        }else{
+//            return priceTableService.getFullPriceByUser(user).size();
+//        }
+//    }
+
+    //its worked
+//    public Integer getFullPriceByUser(@RequestParam String email){
+//        return priceTableService.getFullPriceByUser(userService.getByEmail(email)).size();
+//    }
+
+    public List<PriceTable> getFullPriceByUser(@RequestParam String email){
+        return priceTableService.getFullPriceByUser(userService.getByEmail(email));
     }
 
 }

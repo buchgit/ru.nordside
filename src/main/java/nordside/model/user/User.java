@@ -54,7 +54,7 @@ public class User extends AbstractNamedEntity {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name ="price_variant")
-    private PriceVariant price_variant;
+    private PriceVariant priceVariant;
 
     public User() {
     }
@@ -114,6 +114,14 @@ public class User extends AbstractNamedEntity {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
+    }
+
+    public PriceVariant getPriceVariant() {
+        return priceVariant;
+    }
+
+    public void setPriceVariant(PriceVariant priceVariant) {
+        this.priceVariant = priceVariant;
     }
 
     @Override
