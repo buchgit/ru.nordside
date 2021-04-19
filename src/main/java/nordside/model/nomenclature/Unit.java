@@ -1,7 +1,6 @@
 package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
 import org.hibernate.annotations.OnDelete;
