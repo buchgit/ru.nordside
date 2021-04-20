@@ -1,5 +1,6 @@
 package nordside.model.nomenclature;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
@@ -21,11 +22,11 @@ public class Nomenclature extends AbstractNamedEntity {
     private String imageIndex;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "owner_unit")
     private Unit unit;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "owner_pack_unit")
     private PackUnit packUnit;
 
     @Column(name = "product_country")
@@ -35,12 +36,12 @@ public class Nomenclature extends AbstractNamedEntity {
     private String description;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference(value = "nomenclature_group")
     @JoinColumn(name = "nomenclature_group")
     private NomenclatureGroup nomenclatureGroup;
 
     @OneToMany(mappedBy = "nomenclature",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    //@JsonManagedReference
+    //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
     private Set<PriceTable> priceTable;
 
     public Nomenclature(Integer id, String name, String fullName, String imageIndex,

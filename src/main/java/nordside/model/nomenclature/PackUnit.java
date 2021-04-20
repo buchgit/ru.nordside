@@ -16,7 +16,7 @@ import java.util.Set;
 public class PackUnit extends AbstractNamedEntity {
 
     @OneToOne
-    @JsonBackReference
+    @JsonBackReference(value = "owner_pack_unit")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "owner_id")
     private Nomenclature owner;

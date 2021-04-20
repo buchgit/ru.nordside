@@ -12,17 +12,17 @@ import javax.persistence.*;
 public class PriceTable extends AbstractBaseEntity {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonBackReference
+    @JsonBackReference(value = "price_variant")
     @JoinColumn(name = "price_variant")
     private PriceVariant priceVariant;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    //@JsonBackReference
+    //TODO @JsonBackReference(value = "nomenclature") //закомм., потому что не возвращ.номенклатура в запросе
     @JoinColumn(name = "nomenclature")
     private Nomenclature nomenclature;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    //@JsonBackReference
+    //TODO @@JsonBackReference(value = "unit") //закомм., потому что не возвращ. единица изм в запросе
     @JoinColumn(name = "unit")
     private Unit unit;
 

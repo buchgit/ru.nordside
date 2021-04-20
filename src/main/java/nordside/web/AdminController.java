@@ -2,16 +2,26 @@ package nordside.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import nordside.model.nomenclature.Nomenclature;
+import nordside.service.NomenclatureService;
 import nordside.web.json.JacksonObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.List;
+
+import static nordside.utils.ValidationUtil.getStringResponseEntity;
 
 
 @RestController
@@ -21,9 +31,20 @@ public class AdminController {
     //static final String REST_1C_URL = "https://nordside-shop.herokuapp.com/";
     static final String REST_1C_URL = "https://localhost:8080/";
 
+    private final Logger logger = LoggerFactory.getLogger(AdminController.class);
+
+    private NomenclatureService nomenclatureService;
+
+    private JacksonObjectMapper jacksonObjectMapper;
 
     @Autowired
-    JacksonObjectMapper jacksonObjectMapper;
+    public AdminController(NomenclatureService nomenclatureService, JacksonObjectMapper jacksonObjectMapper) {
+        this.nomenclatureService = nomenclatureService;
+        this.jacksonObjectMapper = jacksonObjectMapper;
+    }
+
+
+
 
 //    @GetMapping(value = "connection")
 //    public Mono<Void> checkConnectionWith1C (){
@@ -61,6 +82,17 @@ public class AdminController {
 
 
         return response.getStatusCode().is2xxSuccessful();
+    }
+
+    @PostMapping(value = "upload/nomenclature", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateNomenclature(@Valid @RequestBody List<Nomenclature> nomenclatureList, BindingResult result){
+        if (result.hasErrors()){
+            return getStringResponseEntity(result, logger);
+        }else{
+            int createdNomenclature = nomenclatureService.updateNomenclature(nomenclatureList);
+            //logger.info("Created " + createdNomenclature + " nomenclatures");
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
     }
 
 }

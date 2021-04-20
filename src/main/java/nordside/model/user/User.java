@@ -52,7 +52,7 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "user")
     @JoinColumn(name ="price_variant")
     private PriceVariant priceVariant;
 

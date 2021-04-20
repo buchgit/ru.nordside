@@ -59,7 +59,7 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-    @GetMapping(value = "nomenclature/all")
+
 //    public Integer getFullPriceByUser(@Valid @RequestBody User user, BindingResult result){
 //        if (result.hasErrors()){
 //            //TO DO
@@ -74,7 +74,7 @@ public class UserController {
 //    public Integer getFullPriceByUser(@RequestParam String email){
 //        return priceTableService.getFullPriceByUser(userService.getByEmail(email)).size();
 //    }
-
+    @GetMapping(value = "nomenclature/all")
     public List<PriceTable> getFullPriceByUser(@RequestParam String email){
         return priceTableService.getFullPriceByUser(userService.getByEmail(email));
     }

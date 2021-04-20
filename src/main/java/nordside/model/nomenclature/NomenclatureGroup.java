@@ -19,7 +19,7 @@ public class NomenclatureGroup extends AbstractNamedEntity {
     private int level;
 
     @OneToMany(mappedBy = "nomenclatureGroup")
-    @JsonBackReference
+    @JsonManagedReference(value = "nomenclature_group")
     private Set<Nomenclature> nomenclatureSet;
 
     @Column

@@ -1,6 +1,7 @@
 package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
 import org.hibernate.annotations.OnDelete;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class Unit extends AbstractNamedEntity {
 
     @OneToOne
-    @JsonBackReference
+    @JsonBackReference(value = "owner_unit")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "owner_id")
     private Nomenclature owner;
@@ -30,7 +31,7 @@ public class Unit extends AbstractNamedEntity {
     private double coefficient;
 
     @OneToMany(mappedBy = "unit",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    //@JsonManagedReference
+    //TODO @JsonManagedReference(value = "unit") ////закомм., потому что не возвращ. ед.изм в запросу
     private Set<PriceTable> priceTable;
 
     public Unit() {
