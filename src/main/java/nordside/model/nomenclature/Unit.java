@@ -1,7 +1,9 @@
 package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
 import org.hibernate.annotations.OnDelete;
@@ -10,13 +12,15 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Set;
 
-
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Entity
 @Table(name = "unit")
 public class Unit extends AbstractNamedEntity {
 
-    @OneToOne
-    @JsonBackReference(value = "owner_unit")
+    @OneToOne(cascade = CascadeType.ALL)
+    //@JsonBackReference(value = "owner_unit")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "owner_id")
     private Nomenclature owner;

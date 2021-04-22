@@ -1,16 +1,16 @@
 package nordside.model.nomenclature;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import nordside.model.AbstractNamedEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "nomenclature_group")
 public class NomenclatureGroup extends AbstractNamedEntity {
@@ -19,8 +19,9 @@ public class NomenclatureGroup extends AbstractNamedEntity {
     private int level;
 
     @OneToMany(mappedBy = "nomenclatureGroup")
-    @JsonManagedReference(value = "nomenclature_group")
-    private Set<Nomenclature> nomenclatureSet;
+    //@JsonBackReference(value = "nomenclature_group")
+    //@JsonIgnore
+    private List<Nomenclature> nomenclatureSet;
 
     @Column
     private String code;
@@ -42,11 +43,11 @@ public class NomenclatureGroup extends AbstractNamedEntity {
         this.level = level;
     }
 
-    public Set<Nomenclature> getNomenclatureSet() {
+    public List<Nomenclature> getNomenclatureSet() {
         return nomenclatureSet;
     }
 
-    public void setNomenclatureSet(Set<Nomenclature> nomenclatureSet) {
+    public void setNomenclatureSet(List<Nomenclature> nomenclatureSet) {
         this.nomenclatureSet = nomenclatureSet;
     }
 

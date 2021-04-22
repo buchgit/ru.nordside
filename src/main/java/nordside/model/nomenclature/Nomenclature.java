@@ -1,13 +1,19 @@
 package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "nomenclature")
 public class Nomenclature extends AbstractNamedEntity {
@@ -22,11 +28,11 @@ public class Nomenclature extends AbstractNamedEntity {
     private String imageIndex;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "owner_unit")
+    //@JsonManagedReference(value = "owner_unit")
     private Unit unit;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "owner_pack_unit")
+    //@JsonManagedReference(value = "owner_pack_unit")
     private PackUnit packUnit;
 
     @Column(name = "product_country")
@@ -35,8 +41,9 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String description;
 
-    @ManyToOne
-    @JsonBackReference(value = "nomenclature_group")
+    @ManyToOne(cascade = CascadeType.ALL)
+    //@JsonManagedReference(value = "nomenclature_group")
+    //@JsonManagedReference
     @JoinColumn(name = "nomenclature_group")
     private NomenclatureGroup nomenclatureGroup;
 
