@@ -29,12 +29,12 @@ INSERT INTO nomenclature (name, fullName, unit, pack_unit, code, image_index, pr
 values ('панель 05*250*2700 белый матовый', 'панель 05*250*2700 белый матовый', 100005, 100006, '00000009457', '00000009457',
         'Russia', 'Матовая панель', (SELECT ID FROM nomenclature_group WHERE NAME = 'Панель Матовая 05*250*2700'));
 -- 100005
-INSERT INTO unit (name, code, owner_id, weight, volume, coefficient)
-VALUES ('шт', '000016355', (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 1.08, 0.03, 0.675);
+INSERT INTO unit (name, owner_id, weight, volume, coefficient)
+VALUES ('шт',  (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 1.08, 0.03, 0.675);
 
 -- 100006
-INSERT INTO pack_unit (name, code, owner_id, weight, volume, coefficient)
-VALUES ('упак', '000016351', (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 10.8, 0.30, 6.75);
+INSERT INTO pack_unit (name, owner_id, weight, volume, coefficient)
+VALUES ('упак',  (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 10.8, 0.30, 6.75);
 
 -- 100007
 insert into price_table(price_variant,nomenclature,unit,price)
