@@ -8,9 +8,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 @Entity
 @Table(name = "nomenclature_group")
 public class NomenclatureGroup extends AbstractNamedEntity {
@@ -19,8 +19,7 @@ public class NomenclatureGroup extends AbstractNamedEntity {
     private int level;
 
     @OneToMany(mappedBy = "nomenclatureGroup")
-    //@JsonBackReference(value = "nomenclature_group")
-    //@JsonIgnore
+    @JsonIgnore //убрал "nomenclatureSet": null,
     private List<Nomenclature> nomenclatureSet;
 
     @Column

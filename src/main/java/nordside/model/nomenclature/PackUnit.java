@@ -20,7 +20,7 @@ import java.util.Set;
 public class PackUnit extends AbstractNamedEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
-    //@JsonBackReference(value = "owner_pack_unit")
+    @JsonBackReference(value = "owner_pack_unit")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "owner_id")
     private Nomenclature owner;

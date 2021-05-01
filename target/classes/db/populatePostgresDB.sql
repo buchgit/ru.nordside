@@ -24,13 +24,24 @@ VALUES ('USER', (SELECT ID FROM USERS WHERE NAME = 'User')),
 -- 100003
 INSERT INTO nomenclature_group (name,level,code)
 values ('Панель Матовая 05*250*2700',1,'000001064');
+
+-- 100004
+INSERT INTO unit (name, weight, volume, coefficient)
+VALUES ('шт', 1.08, 0.03, 0.675);
+
 -- 100004 unit, pack_unit - индексы захардкожены
 INSERT INTO nomenclature (name, fullName, unit, pack_unit, code, image_index, product_country, description, nomenclature_group)
-values ('панель 05*250*2700 белый матовый', 'панель 05*250*2700 белый матовый', 100005, 100006, '00000009457', '00000009457',
+values ('панель 05*250*2700 белый матовый', 'панель 05*250*2700 белый матовый', 100004, 100006, '00000009457', '00000009457',
         'Russia', 'Матовая панель', (SELECT ID FROM nomenclature_group WHERE NAME = 'Панель Матовая 05*250*2700'));
--- 100005
-INSERT INTO unit (name, owner_id, weight, volume, coefficient)
-VALUES ('шт',  (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 1.08, 0.03, 0.675);
+
+
+-- -- 100004 unit, pack_unit - индексы захардкожены
+-- INSERT INTO nomenclature (name, fullName, unit, pack_unit, code, image_index, product_country, description, nomenclature_group)
+-- values ('панель 05*250*2700 белый матовый', 'панель 05*250*2700 белый матовый', 100005, 100006, '00000009457', '00000009457',
+--         'Russia', 'Матовая панель', (SELECT ID FROM nomenclature_group WHERE NAME = 'Панель Матовая 05*250*2700'));
+-- -- -- 100005
+-- INSERT INTO unit (name, owner_id, weight, volume, coefficient)
+-- VALUES ('шт',  (SELECT ID FROM nomenclature WHERE NAME = 'панель 05*250*2700 белый матовый'), 1.08, 0.03, 0.675);
 
 -- 100006
 INSERT INTO pack_unit (name, owner_id, weight, volume, coefficient)
