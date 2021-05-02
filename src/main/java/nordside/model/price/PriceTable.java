@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import nordside.model.AbstractBaseEntity;
 import nordside.model.nomenclature.Nomenclature;
 import nordside.model.nomenclature.Unit;
+import nordside.model.order.OrderMerchandise;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "price_table")
@@ -28,6 +30,11 @@ public class PriceTable extends AbstractBaseEntity {
 
     @Column
     private double price;
+
+    @OneToMany(mappedBy = "merchandise_id",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JsonBackReference(value = "merchandise_id")
+    private Set<OrderMerchandise> orderMerchandise;
+
 
     public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, Unit unit, double price) {
         this.priceVariant = priceVariant;

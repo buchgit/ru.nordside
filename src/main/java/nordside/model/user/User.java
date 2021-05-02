@@ -4,20 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nordside.model.AbstractNamedEntity;
+import nordside.model.order.OrderStatus;
 import nordside.model.price.PriceVariant;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import nordside.model.order.Order;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 //@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
@@ -56,6 +55,12 @@ public class User extends AbstractNamedEntity {
     @JoinColumn(name ="price_variant")
     private PriceVariant priceVariant;
 
+
+
+    @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JsonManagedReference(value = "client")
+    private Set<Order> orders;
+
     public User() {
     }
 
@@ -63,7 +68,7 @@ public class User extends AbstractNamedEntity {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+    public User(Integer id, String name, String email, String password, Role role, Set<Order>orders, Role... roles) {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
@@ -122,6 +127,14 @@ public class User extends AbstractNamedEntity {
 
     public void setPriceVariant(PriceVariant priceVariant) {
         this.priceVariant = priceVariant;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

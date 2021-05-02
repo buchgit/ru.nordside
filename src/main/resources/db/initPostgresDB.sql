@@ -1,5 +1,6 @@
+drop table if exists order_merchandise;
+drop table if exists orders;
 drop table if exists price_table;
-
 DROP TABLE IF EXISTS pack_unit;
 DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS unit;
@@ -94,5 +95,26 @@ create table price_table(
     foreign key (nomenclature)references nomenclature(id),
     foreign key (price_variant) references price_variant (id),
     foreign key (unit) references unit(id)
+);
+
+create table orders(
+    id integer primary key default nextval('global_seq'),
+    number varchar not null ,
+    create_date timestamp default now() not null ,
+    number_for1c varchar,
+    client integer not null ,
+    total_amount double precision,
+    total_volume double precision,
+    total_weight double precision,
+    status varchar not null ,
+    foreign key (client) references users(id)
+);
+
+create table order_merchandise(
+    id integer primary key default nextval('global_seq'),
+    order_id integer not null ,
+    merchandise_id integer not null ,
+    foreign key (order_id) references orders(id),
+    foreign key (merchandise_id) references price_table(id)
 );
 
