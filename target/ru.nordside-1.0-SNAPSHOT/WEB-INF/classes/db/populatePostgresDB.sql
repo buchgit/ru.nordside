@@ -1,3 +1,5 @@
+delete from order_merchandise;
+delete from orders;
 DELETE FROM user_roles;
 DELETE FROM users;
 delete from price_table;
@@ -53,3 +55,11 @@ values ((select id from price_variant where name='default'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый'),
         (select id from unit where name='шт'),
         1.12);
+
+--100008
+insert into orders(number,number_for1c,client,total_amount,total_volume,total_weight,status)
+values ('00000000001','Б0000000001',100001,1200.54,0.333,150.14,'NEW');
+
+--100009
+insert into order_merchandise(order_id, merchandise_id)
+values (100008,100007);
