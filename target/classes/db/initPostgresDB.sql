@@ -118,3 +118,4 @@ create table order_merchandise(
     foreign key (merchandise_id) references price_table(id)
 );
 
+

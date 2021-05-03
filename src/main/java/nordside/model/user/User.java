@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nordside.model.AbstractNamedEntity;
-import nordside.model.Cart;
-import nordside.model.order.OrderStatus;
 import nordside.model.price.PriceVariant;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
@@ -57,14 +55,9 @@ public class User extends AbstractNamedEntity {
     private PriceVariant priceVariant;
 
 
-
     @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JsonManagedReference(value = "client")
     private Set<Order> orders;
-
-    @OneToOne(mappedBy = "owner_id",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JsonManagedReference(value = "owner_id")
-    private Cart cart;
 
     public User() {
     }
