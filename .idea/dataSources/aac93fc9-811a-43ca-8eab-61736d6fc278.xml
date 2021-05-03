@@ -8328,6 +8328,7 @@ UC/801711
     </table>
     <table id="1543" parent="1527" name="order_merchandise">
       <ObjectId>1552155</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>laagpbkzzqfozm</Owner>
       <StateNumber>7608944</StateNumber>
     </table>
@@ -8343,6 +8344,7 @@ UC/801711
     </table>
     <table id="1546" parent="1527" name="price_table">
       <ObjectId>1552119</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>laagpbkzzqfozm</Owner>
       <StateNumber>7608942</StateNumber>
     </table>

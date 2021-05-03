@@ -1,9 +1,11 @@
 package nordside.web;
 
 import nordside.model.nomenclature.Nomenclature;
+import nordside.model.order.Order;
 import nordside.model.price.PriceTable;
 import nordside.model.user.Role;
 import nordside.model.user.User;
+import nordside.service.OrderService;
 import nordside.service.PriceTableService;
 import nordside.service.UserService;
 import org.slf4j.Logger;
@@ -34,10 +36,13 @@ public class UserController {
 
     private PriceTableService priceTableService;
 
+    private OrderService orderService;
+
     @Autowired
-    public UserController(UserService userService, PriceTableService priceTableService) {
+    public UserController(UserService userService, PriceTableService priceTableService, OrderService orderService) {
         this.userService = userService;
         this.priceTableService = priceTableService;
+        this.orderService = orderService;
     }
 
     @PostMapping(value = "registration", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -59,24 +64,21 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-
-//    public Integer getFullPriceByUser(@Valid @RequestBody User user, BindingResult result){
-//        if (result.hasErrors()){
-//            //TO DO
-//            logger.error("error user binding ");
-//            return 111;
-//        }else{
-//            return priceTableService.getFullPriceByUser(user).size();
-//        }
-//    }
-
-    //its worked
-//    public Integer getFullPriceByUser(@RequestParam String email){
-//        return priceTableService.getFullPriceByUser(userService.getByEmail(email)).size();
-//    }
+    //prices
     @GetMapping(value = "nomenclature/all")
     public List<PriceTable> getFullPriceByUser(@RequestParam String email){
         return priceTableService.getFullPriceByUser(userService.getByEmail(email));
+    }
+
+    //orders
+    @GetMapping(value = "order/all")
+    public List<Order> getAllOrders(){
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping(value = "order/all/merchandise")
+    public List<Order>getAllOrdersWithMerchandise(){
+        return orderService.getAllOrdersWithMerchandise();
     }
 
 }
