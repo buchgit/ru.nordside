@@ -45,6 +45,7 @@ public class Order extends AbstractBaseEntity {
                         inverseJoinColumns = @JoinColumn(name = "merchandise_id"))
     private Set<PriceTable> priceTables;
 
+
     public Order() {
     }
 

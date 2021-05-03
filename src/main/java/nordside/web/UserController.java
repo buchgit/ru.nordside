@@ -76,9 +76,5 @@ public class UserController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping(value = "order/all/merchandise")
-    public List<Order>getAllOrdersWithMerchandise(){
-        return orderService.getAllOrdersWithMerchandise();
-    }
 
 }

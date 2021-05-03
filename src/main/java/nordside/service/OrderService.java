@@ -19,7 +19,4 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public List<Order> getAllOrdersWithMerchandise() {
-        return orderRepository.getAllWithMerchandise();
-    }
 }
