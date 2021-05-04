@@ -45,6 +45,14 @@ public class Nomenclature extends AbstractNamedEntity {
     @JoinColumn(name = "nomenclature_group")
     private NomenclatureGroup nomenclatureGroup;
 
+    public NomenclatureGroup getNomenclatureGroup() {
+        return nomenclatureGroup;
+    }
+
+    public void setNomenclatureGroup(NomenclatureGroup nomenclatureGroup) {
+        this.nomenclatureGroup = nomenclatureGroup;
+    }
+
     @OneToMany(mappedBy = "nomenclature",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
     @JsonIgnore //убрал "priceTable": null

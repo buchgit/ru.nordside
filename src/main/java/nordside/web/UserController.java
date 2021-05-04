@@ -76,5 +76,14 @@ public class UserController {
         return orderService.getAllOrders();
     }
 
+    @GetMapping(value = "order/email")
+    public List<Order> getOrdersByEmail(@RequestParam String email){
+        return orderService.getOrdersByEmail(email);
+    }
+
+    @GetMapping(value = "order/email/status")
+    public List<Order> getOrdersByEmailStatus(@RequestParam String email, @RequestParam String status){
+        return orderService.getOrdersByEmailStatus(email, status);
+    }
 
 }

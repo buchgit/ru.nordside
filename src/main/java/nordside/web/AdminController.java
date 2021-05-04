@@ -3,7 +3,9 @@ package nordside.web;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import nordside.model.nomenclature.Nomenclature;
+import nordside.model.price.PriceTable;
 import nordside.service.NomenclatureService;
+import nordside.service.PriceTableService;
 import nordside.web.json.JacksonObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +37,14 @@ public class AdminController {
 
     private NomenclatureService nomenclatureService;
 
+    private PriceTableService priceTableService;
+
     private JacksonObjectMapper jacksonObjectMapper;
 
     @Autowired
-    public AdminController(NomenclatureService nomenclatureService, JacksonObjectMapper jacksonObjectMapper) {
+    public AdminController(NomenclatureService nomenclatureService,PriceTableService priceTableService, JacksonObjectMapper jacksonObjectMapper) {
         this.nomenclatureService = nomenclatureService;
+        this.priceTableService = priceTableService;
         this.jacksonObjectMapper = jacksonObjectMapper;
     }
 
@@ -89,8 +94,19 @@ public class AdminController {
         if (result.hasErrors()){
             return getStringResponseEntity(result, logger);
         }else{
-            int createdNomenclature = nomenclatureService.updateNomenclature(nomenclatureList);
-            //logger.info("Created " + createdNomenclature + " nomenclatures");
+            int created = nomenclatureService.updateNomenclature(nomenclatureList);
+            //logger.info("Created " + created + " nomenclatures");
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
+
+    @PostMapping(value = "upload/pricetable",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updatePriceTable(@Valid @RequestBody List<PriceTable> priceTableList, BindingResult result){
+        if (result.hasErrors()){
+            return getStringResponseEntity(result,logger);
+        }else{
+            int created = priceTableService.updatePriceTable(priceTableList);
+            //logger.info("Created " + created + " price lines");
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }

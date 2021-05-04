@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "price_table")
-public class PriceTable extends AbstractBaseEntity {
+public class PriceTable extends AbstractBaseEntity{
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonBackReference(value = "price_variant")

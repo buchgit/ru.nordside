@@ -46,6 +46,7 @@ CREATE TABLE nomenclature_group
     level integer,
     code  varchar
 );
+create unique index code_idx on nomenclature_group (code);
 
 CREATE TABLE unit
 (
@@ -72,7 +73,7 @@ CREATE TABLE nomenclature
     foreign key (unit) references unit(id),
     foreign key (nomenclature_group) references nomenclature_group(id)
 );
-
+create unique index nomenclature_code_idx on nomenclature (code);
 
 
 CREATE TABLE pack_unit
@@ -92,6 +93,7 @@ create table price_table(
     price_variant integer not null ,
     unit integer not null ,
     price double precision,
+    constraint nomenclature_price_variant_idx unique (nomenclature, price_variant),
     foreign key (nomenclature)references nomenclature(id),
     foreign key (price_variant) references price_variant (id),
     foreign key (unit) references unit(id)
@@ -109,6 +111,7 @@ create table orders(
     status varchar not null ,
     foreign key (client) references users(id)
 );
+create unique index number_for1c_idx on orders(number_for1c);
 
 create table order_merchandise(
     id integer primary key default nextval('global_seq'),
