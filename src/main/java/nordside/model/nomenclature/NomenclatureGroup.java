@@ -2,6 +2,8 @@ package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.*;
 import nordside.model.AbstractNamedEntity;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -57,4 +59,25 @@ public class NomenclatureGroup extends AbstractNamedEntity {
     public void setCode(String code) {
         this.code = code;
     }
+
+//    @Override
+//    public int hashCode() {
+//        HashCodeBuilder hcb = new HashCodeBuilder();
+//        hcb.append(code);
+//        return hcb.toHashCode();
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (!(obj instanceof NomenclatureGroup)) {
+//            return false;
+//        }
+//        NomenclatureGroup that = (NomenclatureGroup) obj;
+//        EqualsBuilder eb = new EqualsBuilder();
+//        eb.append(code, that.code);
+//        return eb.isEquals();
+//    }
 }

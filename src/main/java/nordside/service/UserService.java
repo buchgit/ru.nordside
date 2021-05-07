@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 import static nordside.utils.ValidationUtil.checkNotFound;
 
 @Service("userService")
@@ -83,4 +85,7 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public List<User> createAll(List<User> userList) {
+        return userRepository.saveAll(userList);
+    }
 }

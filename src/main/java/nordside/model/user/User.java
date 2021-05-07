@@ -49,7 +49,7 @@ public class User extends AbstractNamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonBackReference(value = "user")
     @JoinColumn(name ="price_variant")
     private PriceVariant priceVariant;

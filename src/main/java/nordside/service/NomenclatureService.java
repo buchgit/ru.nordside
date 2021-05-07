@@ -31,7 +31,7 @@ public class NomenclatureService {
         Assert.notEmpty(nomenclatureList, Messages.NOMENCLATURE_LIST_IS_EMPTY);
         for(Nomenclature n:nomenclatureList){
             NomenclatureGroup nomenclatureGroup = nomenclatureGroupRepository.getByCode(n.getNomenclatureGroup().getCode());
-            if (nomenclatureGroup!=null&&!nomenclatureGroup.isNew()){
+            if (nomenclatureGroup!=null){
                 n.setNomenclatureGroup(nomenclatureGroup);
 
             }

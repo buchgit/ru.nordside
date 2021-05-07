@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import nordside.model.nomenclature.Nomenclature;
 import nordside.model.price.PriceTable;
+import nordside.model.user.Role;
+import nordside.model.user.User;
 import nordside.service.NomenclatureService;
 import nordside.service.PriceTableService;
+import nordside.service.UserService;
 import nordside.web.json.JacksonObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +24,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.lang.reflect.Array;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static nordside.utils.ValidationUtil.getStringResponseEntity;
 
@@ -41,11 +46,14 @@ public class AdminController {
 
     private JacksonObjectMapper jacksonObjectMapper;
 
+    private UserService userService;
+
     @Autowired
-    public AdminController(NomenclatureService nomenclatureService,PriceTableService priceTableService, JacksonObjectMapper jacksonObjectMapper) {
+    public AdminController(NomenclatureService nomenclatureService,PriceTableService priceTableService, JacksonObjectMapper jacksonObjectMapper, UserService userService) {
         this.nomenclatureService = nomenclatureService;
         this.priceTableService = priceTableService;
         this.jacksonObjectMapper = jacksonObjectMapper;
+        this.userService = userService;
     }
 
 
@@ -107,6 +115,22 @@ public class AdminController {
         }else{
             int created = priceTableService.updatePriceTable(priceTableList);
             //logger.info("Created " + created + " price lines");
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
+
+    @PostMapping(value = "upload/user",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateUser (@Valid @RequestBody List<User> userList, BindingResult result){
+        if (result.hasErrors()) {
+            return getStringResponseEntity(result, logger);
+        } else {
+            Set<Role> roles = new HashSet<Role>();
+            roles.add(Role.USER);
+            for (User user:userList){
+                user.setRoles(roles);
+            }
+            List<User> created = userService.createAll(userList);
+            logger.info("created users: " + created.size());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
