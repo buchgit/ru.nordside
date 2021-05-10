@@ -23,7 +23,7 @@ CREATE TABLE users
 (
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name          VARCHAR                           NOT NULL,
-    email         VARCHAR                           NOT NULL,
+    email         VARCHAR                           NOT NULL ,
     password      VARCHAR                           NOT NULL,
     registered    TIMESTAMP           DEFAULT now() NOT NULL,
     price_variant INTEGER                           not null,
@@ -101,7 +101,6 @@ create table price_table(
 
 create table orders(
     id integer primary key default nextval('global_seq'),
-    number varchar not null ,
     create_date timestamp default now() not null ,
     number_for1c varchar,
     client integer not null ,

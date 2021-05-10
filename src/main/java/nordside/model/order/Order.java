@@ -5,6 +5,7 @@ import nordside.model.AbstractBaseEntity;
 import nordside.model.price.PriceTable;
 import nordside.model.user.User;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -12,10 +13,8 @@ import java.util.Set;
 @Table(name = "orders")
 public class Order extends AbstractBaseEntity {
 
-    @Column
-    private String number;
-
     @Column(name = "create_date")
+    @NotNull
     private Date date;
 
     @Column(name = "number_for1c")
@@ -49,8 +48,7 @@ public class Order extends AbstractBaseEntity {
     public Order() {
     }
 
-    public Order(String number, Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<PriceTable> priceTables) {
-        this.number = number;
+    public Order(Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<PriceTable> priceTables) {
         this.date = date;
         this.number_For1c = number_For1c;
         this.client = client;
@@ -61,9 +59,8 @@ public class Order extends AbstractBaseEntity {
         this.priceTables = priceTables;
     }
 
-    public Order(Integer id, String number, Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<PriceTable> priceTables) {
+    public Order(Integer id, Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<PriceTable> priceTables) {
         super(id);
-        this.number = number;
         this.date = date;
         this.number_For1c = number_For1c;
         this.client = client;
@@ -72,14 +69,6 @@ public class Order extends AbstractBaseEntity {
         this.totalWeight = totalWeight;
         this.status = status;
         this.priceTables = priceTables;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     public Date getDate() {
@@ -144,5 +133,16 @@ public class Order extends AbstractBaseEntity {
 
     public void setPriceTables(Set<PriceTable> priceTables) {
         this.priceTables = priceTables;
+    }
+
+    public void fillFrom(Order order){
+        this.setDate(order.getDate());
+        this.setNumber_For1c(order.getNumber_For1c());
+        this.setClient(order.getClient());
+        this.setTotalAmount(order.getTotalAmount());
+        this.setTotalVolume(order.getTotalVolume());
+        this.setTotalWeight(order.getTotalWeight());
+        this.setStatus(order.getStatus());
+        this.setPriceTables(order.getPriceTables());
     }
 }

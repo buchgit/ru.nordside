@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,6 +85,23 @@ public class UserController {
     @GetMapping(value = "order/email/status")
     public List<Order> getOrdersByEmailStatus(@RequestParam String email, @RequestParam String status){
         return orderService.getOrdersByEmailStatus(email, status);
+    }
+
+    @PostMapping(value = "order/create")
+    public ResponseEntity<String> addMerchandiseToOrder(@Valid @RequestBody Order order,BindingResult result){
+        if (result.hasErrors()){
+            return getStringResponseEntity(result, logger);
+        }else {
+            Order created = orderService.create(order);
+            logger.info("created order number "+ created.getNumber_For1c());
+            return new ResponseEntity<> (HttpStatus.CREATED);
+        }
+    }
+
+    @PutMapping(value = "order/update",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateOrder(@Valid @RequestBody Order order){
+        orderService.update(order);
     }
 
 }

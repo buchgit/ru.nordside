@@ -57,9 +57,9 @@ values ((select id from price_variant where name='default'),
         1.12);
 
 --100008
-insert into orders(number,number_for1c,client,total_amount,total_volume,total_weight,status)
-values ('00000000001','Б0000000001',100001,1200.54,0.333,150.14,'NEW'),
-       ('00000000002','Б0000000003',100001,1200.55,0.336,150.17,'IN_PROGRESS');
+insert into orders(number_for1c,client,total_amount,total_volume,total_weight,status)
+values ('Б0000000001',100001,1200.54,0.333,150.14,'NEW'),
+       ('Б0000000003',100001,1200.55,0.336,150.17,'IN_PROGRESS');
 
 --100010,100011
 insert into order_merchandise(order_id, merchandise_id)
