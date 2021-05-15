@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @PostMapping(value = "order/create")
-    public ResponseEntity<String> addMerchandiseToOrder(@Valid @RequestBody Order order,BindingResult result){
+    public ResponseEntity<String> createOrder(@Valid @RequestBody Order order,BindingResult result){
         if (result.hasErrors()){
             return getStringResponseEntity(result, logger);
         }else {
