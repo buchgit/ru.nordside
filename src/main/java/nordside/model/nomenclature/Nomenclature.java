@@ -25,53 +25,96 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column(name = "image_index")
     private String imageIndex;
 
-    //@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "owner_unit")
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "unit")
-    private Unit unit;
-
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "owner_pack_unit")
-    private PackUnit packUnit;
-
-    @Column(name = "product_country")
-    private String productCountry;
-
     @Column
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "nomenclature_group")
-    private NomenclatureGroup nomenclatureGroup;
+    @Column
+    private String section;
 
-    public NomenclatureGroup getNomenclatureGroup() {
-        return nomenclatureGroup;
-    }
+    @Column
+    private String subsection;
 
-    public void setNomenclatureGroup(NomenclatureGroup nomenclatureGroup) {
-        this.nomenclatureGroup = nomenclatureGroup;
-    }
+    @Column
+    private double length;
+
+    @Column
+    private double width;
+
+    @Column
+    private double high;
+
+    @Column
+    private double color;
+
+    @Column
+    private double volume;
+
+    @Column
+    private int countInPack;
+
+    @Column
+    private String unit;
+
+
+
 
     @OneToMany(mappedBy = "nomenclature",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
     @JsonIgnore //убрал "priceTable": null
     private Set<PriceTable> priceTable;
 
-    public Nomenclature(Integer id, String name, String fullName, String imageIndex,
-                        Unit unit, PackUnit packUnit, String code, String productCountry, String description) {
-        super(id, name);
-        this.fullName = fullName;
-        this.imageIndex = imageIndex;
-        this.unit = unit;
-        this.packUnit = packUnit;
-        this.code = code;
-        this.productCountry = productCountry;
-        this.description = description;
-    }
 
     public Nomenclature() {
 
+    }
+
+    public Nomenclature(String code, String fullName, String imageIndex,
+                        String description, String section, String subsection,
+                        double length, double width, double high, double color,
+                        double volume, int countInPack, String unit) {
+        this.code = code;
+        this.fullName = fullName;
+        this.imageIndex = imageIndex;
+        this.description = description;
+        this.section = section;
+        this.subsection = subsection;
+        this.length = length;
+        this.width = width;
+        this.high = high;
+        this.color = color;
+        this.volume = volume;
+        this.countInPack = countInPack;
+        this.unit = unit;
+    }
+
+    public Nomenclature(Integer id, String name, String code,
+                        String fullName, String imageIndex,
+                        String description, String section,
+                        String subsection, double length,
+                        double width, double high, double color,
+                        double volume, int countInPack, String unit) {
+        super(id, name);
+        this.code = code;
+        this.fullName = fullName;
+        this.imageIndex = imageIndex;
+        this.description = description;
+        this.section = section;
+        this.subsection = subsection;
+        this.length = length;
+        this.width = width;
+        this.high = high;
+        this.color = color;
+        this.volume = volume;
+        this.countInPack = countInPack;
+        this.unit = unit;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getFullName() {
@@ -90,30 +133,6 @@ public class Nomenclature extends AbstractNamedEntity {
         this.imageIndex = imageIndex;
     }
 
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Unit unit) {
-        this.unit = unit;
-    }
-
-    public  PackUnit getPackUnit(){
-        return packUnit;
-    }
-
-    public void setPackUnit(PackUnit packUnit) {
-        this.packUnit = packUnit;
-    }
-
-    public String getProductCountry() {
-        return productCountry;
-    }
-
-    public void setProductCountry(String productCountry) {
-        this.productCountry = productCountry;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -122,11 +141,83 @@ public class Nomenclature extends AbstractNamedEntity {
         this.description = description;
     }
 
-    public String getCode() {
-        return code;
+    public String getSection() {
+        return section;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public String getSubsection() {
+        return subsection;
+    }
+
+    public void setSubsection(String subsection) {
+        this.subsection = subsection;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public void setHigh(double high) {
+        this.high = high;
+    }
+
+    public double getColor() {
+        return color;
+    }
+
+    public void setColor(double color) {
+        this.color = color;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public int getCountInPack() {
+        return countInPack;
+    }
+
+    public void setCountInPack(int countInPack) {
+        this.countInPack = countInPack;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public Set<PriceTable> getPriceTable() {
+        return priceTable;
+    }
+
+    public void setPriceTable(Set<PriceTable> priceTable) {
+        this.priceTable = priceTable;
     }
 }

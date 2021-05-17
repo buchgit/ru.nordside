@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import nordside.model.AbstractBaseEntity;
 import nordside.model.nomenclature.Nomenclature;
-import nordside.model.nomenclature.Unit;
 import nordside.model.order.Order;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -25,10 +23,8 @@ public class PriceTable extends AbstractBaseEntity{
     @JoinColumn(name = "nomenclature")
     private Nomenclature nomenclature;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    //TODO @@JsonBackReference(value = "unit") //закомм., потому что не возвращ. единица изм в запросе
-    @JoinColumn(name = "unit")
-    private Unit unit;
+    @Column
+    private String unit;
 
     @Column
     private double price;
@@ -41,14 +37,14 @@ public class PriceTable extends AbstractBaseEntity{
     private Set<Order> orders;
 
 
-    public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, Unit unit, double price) {
+    public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price) {
         this.priceVariant = priceVariant;
         this.nomenclature = nomenclature;
         this.unit = unit;
         this.price = price;
     }
 
-    public PriceTable(Integer id, PriceVariant priceVariant, Nomenclature nomenclature, Unit unit, double price) {
+    public PriceTable(Integer id, PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price) {
         super(id);
         this.priceVariant = priceVariant;
         this.nomenclature = nomenclature;
@@ -76,11 +72,11 @@ public class PriceTable extends AbstractBaseEntity{
         this.nomenclature = nomenclature;
     }
 
-    public Unit getUnit() {
+    public String getUnit() {
         return unit;
     }
 
-    public void setUnit(Unit unit) {
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 
