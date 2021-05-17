@@ -51,7 +51,8 @@ CREATE TABLE nomenclature
     width       double precision,
     high        double precision,
     color       varchar,
-    volume      double precision,
+    pack_volume double precision,
+    pack_weight double precision,
     countInPack integer
 );
 create unique index nomenclature_code_idx on nomenclature (code);

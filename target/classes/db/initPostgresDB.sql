@@ -1,10 +1,7 @@
 drop table if exists order_merchandise;
 drop table if exists orders;
 drop table if exists price_table;
-DROP TABLE IF EXISTS pack_unit;
 DROP TABLE IF EXISTS nomenclature;
-DROP TABLE IF EXISTS unit;
-DROP TABLE IF EXISTS nomenclature_group;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 drop table if exists price_variant;
@@ -39,64 +36,35 @@ CREATE TABLE user_roles
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE nomenclature_group
-(
-    id    integer primary key default nextval('global_seq'),
-    name  varchar not null,
-    level integer,
-    code  varchar
-);
-create unique index code_idx on nomenclature_group (code);
-
-CREATE TABLE unit
-(
-    id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name        VARCHAR NOT NULL,
-    weight      DOUBLE PRECISION,
-    volume      DOUBLE PRECISION,
-    coefficient DOUBLE PRECISION
---     FOREIGN KEY (owner_id) REFERENCES nomenclature (id) ON DELETE CASCADE
-);
-
 CREATE TABLE nomenclature
 (
-    id                 INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    name               VARCHAR NOT NULL,
-    fullName           VARCHAR,
-    unit               INTEGER,
-    pack_unit          INTEGER,
-    code               VARCHAR,
-    image_index        VARCHAR,
-    product_country    VARCHAR,
-    description        VARCHAR,
-    nomenclature_group INTEGER,
-    foreign key (unit) references unit(id),
-    foreign key (nomenclature_group) references nomenclature_group(id)
-);
-create unique index nomenclature_code_idx on nomenclature (code);
-
-
-CREATE TABLE pack_unit
-(
     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name        VARCHAR NOT NULL,
-    owner_id    INTEGER,
-    weight      DOUBLE PRECISION,
-    volume      DOUBLE PRECISION,
-    coefficient DOUBLE PRECISION,
-    FOREIGN KEY (owner_id) REFERENCES nomenclature (id) ON DELETE CASCADE
+    fullName    VARCHAR,
+    unit        varchar,
+    code        VARCHAR not null ,
+    image_index VARCHAR,
+    section     VARCHAR,
+    subsection  VARCHAR,
+    description VARCHAR,
+    length      double precision,
+    width       double precision,
+    high        double precision,
+    color       varchar,
+    volume      double precision,
+    countInPack integer
 );
+create unique index nomenclature_code_idx on nomenclature (code);
 
 create table price_table(
     id integer primary key default nextval('global_seq'),
     nomenclature integer not null,
     price_variant integer not null ,
-    unit integer not null ,
+    unit varchar not null ,
     price double precision,
     constraint nomenclature_price_variant_idx unique (nomenclature, price_variant),
     foreign key (nomenclature)references nomenclature(id),
-    foreign key (price_variant) references price_variant (id),
-    foreign key (unit) references unit(id)
+    foreign key (price_variant) references price_variant (id)
 );
 
 create table orders(

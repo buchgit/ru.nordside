@@ -1671,7 +1671,7 @@ true posixrules
     <database id="67" parent="1" name="d2dfc1jg4t5auh">
       <ObjectId>801712</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <IntrospectionStateNumber>11848987</IntrospectionStateNumber>
+      <IntrospectionStateNumber>11970262</IntrospectionStateNumber>
       <Current>1</Current>
     </database>
     <database id="68" parent="1" name="d2dh6nsof3a3ij">
@@ -8132,7 +8132,6 @@ true posixrules
     <role id="1530" parent="1" name="wfpwjwdhbncvgq">
       <ObjectId>2940370</ObjectId>
       <ConnectionLimit>20</ConnectionLimit>
-      <CanLogin>1</CanLogin>
     </role>
     <role id="1531" parent="1" name="wgeywfwcvtipok">
       <ObjectId>369987</ObjectId>
@@ -8789,7 +8788,7 @@ UC/801711
 </Acl>
       <StateNumber>1266254</StateNumber>
       <Owner>laagpbkzzqfozm</Owner>
-      <IntrospectionStateNumber>11849048</IntrospectionStateNumber>
+      <IntrospectionStateNumber>11970268</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="1662" parent="67" name="plpgsql">
@@ -8894,51 +8893,51 @@ UC/801711
       <Type>index</Type>
     </access-method>
     <sequence id="1674" parent="1661" name="global_seq">
-      <ObjectId>2955237</ObjectId>
+      <ObjectId>3011883</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11848674</StateNumber>
+      <StateNumber>11970250</StateNumber>
       <DataType>bigint|0s</DataType>
     </sequence>
     <table id="1675" parent="1661" name="nomenclature">
-      <ObjectId>2955273</ObjectId>
+      <ObjectId>3011919</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
     </table>
     <table id="1676" parent="1661" name="order_merchandise">
-      <ObjectId>2955341</ObjectId>
+      <ObjectId>3011966</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829455</StateNumber>
+      <StateNumber>11970076</StateNumber>
     </table>
     <table id="1677" parent="1661" name="orders">
-      <ObjectId>2955325</ObjectId>
+      <ObjectId>3011950</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
     </table>
     <table id="1678" parent="1661" name="price_table">
-      <ObjectId>2955304</ObjectId>
+      <ObjectId>3011929</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
     </table>
     <table id="1679" parent="1661" name="price_variant">
-      <ObjectId>2955239</ObjectId>
+      <ObjectId>3011885</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
     </table>
     <table id="1680" parent="1661" name="user_roles">
-      <ObjectId>2955260</ObjectId>
+      <ObjectId>3011906</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829439</StateNumber>
+      <StateNumber>11970068</StateNumber>
     </table>
     <table id="1681" parent="1661" name="users">
-      <ObjectId>2955248</ObjectId>
+      <ObjectId>3011894</ObjectId>
       <Owner>laagpbkzzqfozm</Owner>
-      <StateNumber>11829439</StateNumber>
+      <StateNumber>11970068</StateNumber>
     </table>
     <column id="1682" parent="1675" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -8946,91 +8945,97 @@ UC/801711
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1684" parent="1675" name="fullname">
       <Position>3</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1685" parent="1675" name="unit">
       <Position>4</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1686" parent="1675" name="code">
       <Position>5</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1687" parent="1675" name="image_index">
       <Position>6</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1688" parent="1675" name="section">
       <Position>7</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1689" parent="1675" name="subsection">
       <Position>8</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1690" parent="1675" name="description">
       <Position>9</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="1691" parent="1675" name="length">
       <Position>10</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="1692" parent="1675" name="width">
       <Position>11</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="1693" parent="1675" name="high">
       <Position>12</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="1694" parent="1675" name="color">
       <Position>13</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="1695" parent="1675" name="volume">
+    <column id="1695" parent="1675" name="pack_volume">
       <Position>14</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="1696" parent="1675" name="countinpack">
+    <column id="1696" parent="1675" name="pack_weight">
       <Position>15</Position>
+      <DataType>double precision|0s</DataType>
+      <StateNumber>11970069</StateNumber>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="1697" parent="1675" name="countinpack">
+      <Position>16</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>11829440</StateNumber>
+      <StateNumber>11970069</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="1697" parent="1675" name="nomenclature_pkey">
-      <ObjectId>2955280</ObjectId>
-      <StateNumber>11829440</StateNumber>
+    <index id="1698" parent="1675" name="nomenclature_pkey">
+      <ObjectId>3011926</ObjectId>
+      <StateNumber>11970069</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -9038,9 +9043,9 @@ UC/801711
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <index id="1698" parent="1675" name="nomenclature_code_idx">
-      <ObjectId>2955282</ObjectId>
-      <StateNumber>11829442</StateNumber>
+    <index id="1699" parent="1675" name="nomenclature_code_idx">
+      <ObjectId>3011928</ObjectId>
+      <StateNumber>11970070</StateNumber>
       <ColNames>code</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
@@ -9048,38 +9053,38 @@ UC/801711
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="1699" parent="1675" name="nomenclature_pkey">
-      <ObjectId>2955281</ObjectId>
-      <StateNumber>11829440</StateNumber>
+    <key id="1700" parent="1675" name="nomenclature_pkey">
+      <ObjectId>3011927</ObjectId>
+      <StateNumber>11970069</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>nomenclature_pkey</UnderlyingIndexName>
     </key>
-    <column id="1700" parent="1676" name="id">
+    <column id="1701" parent="1676" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829455</StateNumber>
+      <StateNumber>11970076</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="1701" parent="1676" name="order_id">
+    <column id="1702" parent="1676" name="order_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829455</StateNumber>
+      <StateNumber>11970076</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="1702" parent="1676" name="merchandise_id">
+    <column id="1703" parent="1676" name="merchandise_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829455</StateNumber>
+      <StateNumber>11970076</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="1703" parent="1676" name="order_merchandise_pkey">
-      <ObjectId>2955345</ObjectId>
-      <StateNumber>11829455</StateNumber>
+    <index id="1704" parent="1676" name="order_merchandise_pkey">
+      <ObjectId>3011970</ObjectId>
+      <StateNumber>11970076</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -9087,90 +9092,90 @@ UC/801711
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <key id="1704" parent="1676" name="order_merchandise_pkey">
-      <ObjectId>2955346</ObjectId>
-      <StateNumber>11829455</StateNumber>
+    <key id="1705" parent="1676" name="order_merchandise_pkey">
+      <ObjectId>3011971</ObjectId>
+      <StateNumber>11970076</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>order_merchandise_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="1705" parent="1676" name="order_merchandise_order_id_fkey">
-      <ObjectId>2955347</ObjectId>
-      <StateNumber>11829455</StateNumber>
+    <foreign-key id="1706" parent="1676" name="order_merchandise_order_id_fkey">
+      <ObjectId>3011972</ObjectId>
+      <StateNumber>11970076</StateNumber>
       <ColNames>order_id</ColNames>
-      <RefTableId>2955325</RefTableId>
+      <RefTableId>3011950</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>orders</RefTableName>
       <RefKeyName>orders_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="1706" parent="1676" name="order_merchandise_merchandise_id_fkey">
-      <ObjectId>2955352</ObjectId>
-      <StateNumber>11829455</StateNumber>
+    <foreign-key id="1707" parent="1676" name="order_merchandise_merchandise_id_fkey">
+      <ObjectId>3011977</ObjectId>
+      <StateNumber>11970076</StateNumber>
       <ColNames>merchandise_id</ColNames>
-      <RefTableId>2955304</RefTableId>
+      <RefTableId>3011929</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>price_table</RefTableName>
       <RefKeyName>price_table_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="1707" parent="1677" name="id">
+    <column id="1708" parent="1677" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="1708" parent="1677" name="create_date">
+    <column id="1709" parent="1677" name="create_date">
       <Position>2</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <DefaultExpression>now()</DefaultExpression>
       <TypeId>1114</TypeId>
     </column>
-    <column id="1709" parent="1677" name="number_for1c">
+    <column id="1710" parent="1677" name="number_for1c">
       <Position>3</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="1710" parent="1677" name="client">
+    <column id="1711" parent="1677" name="client">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="1711" parent="1677" name="total_amount">
+    <column id="1712" parent="1677" name="total_amount">
       <Position>5</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="1712" parent="1677" name="total_volume">
+    <column id="1713" parent="1677" name="total_volume">
       <Position>6</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="1713" parent="1677" name="total_weight">
+    <column id="1714" parent="1677" name="total_weight">
       <Position>7</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="1714" parent="1677" name="status">
+    <column id="1715" parent="1677" name="status">
       <Position>8</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829451</StateNumber>
+      <StateNumber>11970074</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="1715" parent="1677" name="orders_pkey">
-      <ObjectId>2955333</ObjectId>
-      <StateNumber>11829451</StateNumber>
+    <index id="1716" parent="1677" name="orders_pkey">
+      <ObjectId>3011958</ObjectId>
+      <StateNumber>11970074</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -9178,9 +9183,9 @@ UC/801711
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <index id="1716" parent="1677" name="number_for1c_idx">
-      <ObjectId>2955340</ObjectId>
-      <StateNumber>11829452</StateNumber>
+    <index id="1717" parent="1677" name="number_for1c_idx">
+      <ObjectId>3011965</ObjectId>
+      <StateNumber>11970075</StateNumber>
       <ColNames>number_for1c</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
@@ -9188,61 +9193,61 @@ UC/801711
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="1717" parent="1677" name="orders_pkey">
-      <ObjectId>2955334</ObjectId>
-      <StateNumber>11829451</StateNumber>
+    <key id="1718" parent="1677" name="orders_pkey">
+      <ObjectId>3011959</ObjectId>
+      <StateNumber>11970074</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>orders_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="1718" parent="1677" name="orders_client_fkey">
-      <ObjectId>2955335</ObjectId>
-      <StateNumber>11829451</StateNumber>
+    <foreign-key id="1719" parent="1677" name="orders_client_fkey">
+      <ObjectId>3011960</ObjectId>
+      <StateNumber>11970074</StateNumber>
       <ColNames>client</ColNames>
-      <RefTableId>2955248</RefTableId>
+      <RefTableId>3011894</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="1719" parent="1678" name="id">
+    <column id="1720" parent="1678" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="1720" parent="1678" name="nomenclature">
+    <column id="1721" parent="1678" name="nomenclature">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="1721" parent="1678" name="price_variant">
+    <column id="1722" parent="1678" name="price_variant">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="1722" parent="1678" name="unit">
+    <column id="1723" parent="1678" name="unit">
       <Position>4</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="1723" parent="1678" name="price">
+    <column id="1724" parent="1678" name="price">
       <Position>5</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>11829449</StateNumber>
+      <StateNumber>11970073</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <index id="1724" parent="1678" name="price_table_pkey">
-      <ObjectId>2955311</ObjectId>
-      <StateNumber>11829449</StateNumber>
+    <index id="1725" parent="1678" name="price_table_pkey">
+      <ObjectId>3011936</ObjectId>
+      <StateNumber>11970073</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -9250,9 +9255,9 @@ UC/801711
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <index id="1725" parent="1678" name="nomenclature_price_variant_idx">
-      <ObjectId>2955313</ObjectId>
-      <StateNumber>11829449</StateNumber>
+    <index id="1726" parent="1678" name="nomenclature_price_variant_idx">
+      <ObjectId>3011938</ObjectId>
+      <StateNumber>11970073</StateNumber>
       <ColNames>nomenclature
 price_variant</ColNames>
       <Unique>1</Unique>
@@ -9260,58 +9265,58 @@ price_variant</ColNames>
       <CollationIds>0,0</CollationIds>
       <ClassIds>1978,1978</ClassIds>
     </index>
-    <key id="1726" parent="1678" name="price_table_pkey">
-      <ObjectId>2955312</ObjectId>
-      <StateNumber>11829449</StateNumber>
+    <key id="1727" parent="1678" name="price_table_pkey">
+      <ObjectId>3011937</ObjectId>
+      <StateNumber>11970073</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>price_table_pkey</UnderlyingIndexName>
     </key>
-    <key id="1727" parent="1678" name="nomenclature_price_variant_idx">
-      <ObjectId>2955314</ObjectId>
-      <StateNumber>11829449</StateNumber>
+    <key id="1728" parent="1678" name="nomenclature_price_variant_idx">
+      <ObjectId>3011939</ObjectId>
+      <StateNumber>11970073</StateNumber>
       <ColNames>nomenclature
 price_variant</ColNames>
       <UnderlyingIndexName>nomenclature_price_variant_idx</UnderlyingIndexName>
     </key>
-    <foreign-key id="1728" parent="1678" name="price_table_nomenclature_fkey">
-      <ObjectId>2955315</ObjectId>
-      <StateNumber>11829449</StateNumber>
+    <foreign-key id="1729" parent="1678" name="price_table_nomenclature_fkey">
+      <ObjectId>3011940</ObjectId>
+      <StateNumber>11970073</StateNumber>
       <ColNames>nomenclature</ColNames>
-      <RefTableId>2955273</RefTableId>
+      <RefTableId>3011919</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>nomenclature</RefTableName>
       <RefKeyName>nomenclature_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="1729" parent="1678" name="price_table_price_variant_fkey">
-      <ObjectId>2955320</ObjectId>
-      <StateNumber>11829449</StateNumber>
+    <foreign-key id="1730" parent="1678" name="price_table_price_variant_fkey">
+      <ObjectId>3011945</ObjectId>
+      <StateNumber>11970073</StateNumber>
       <ColNames>price_variant</ColNames>
-      <RefTableId>2955239</RefTableId>
+      <RefTableId>3011885</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>price_variant</RefTableName>
       <RefKeyName>price_variant_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="1730" parent="1679" name="id">
+    <column id="1731" parent="1679" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829435</StateNumber>
+      <StateNumber>11970065</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="1731" parent="1679" name="name">
+    <column id="1732" parent="1679" name="name">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829435</StateNumber>
+      <StateNumber>11970065</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="1732" parent="1679" name="price_variant_pkey">
-      <ObjectId>2955246</ObjectId>
-      <StateNumber>11829435</StateNumber>
+    <index id="1733" parent="1679" name="price_variant_pkey">
+      <ObjectId>3011892</ObjectId>
+      <StateNumber>11970065</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -9319,29 +9324,29 @@ price_variant</ColNames>
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <key id="1733" parent="1679" name="price_variant_pkey">
-      <ObjectId>2955247</ObjectId>
-      <StateNumber>11829435</StateNumber>
+    <key id="1734" parent="1679" name="price_variant_pkey">
+      <ObjectId>3011893</ObjectId>
+      <StateNumber>11970065</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>price_variant_pkey</UnderlyingIndexName>
     </key>
-    <column id="1734" parent="1680" name="user_id">
+    <column id="1735" parent="1680" name="user_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829439</StateNumber>
+      <StateNumber>11970068</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="1735" parent="1680" name="role">
+    <column id="1736" parent="1680" name="role">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>11829439</StateNumber>
+      <StateNumber>11970068</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="1736" parent="1680" name="user_roles_idx">
-      <ObjectId>2955266</ObjectId>
-      <StateNumber>11829439</StateNumber>
+    <index id="1737" parent="1680" name="user_roles_idx">
+      <ObjectId>3011912</ObjectId>
+      <StateNumber>11970068</StateNumber>
       <ColNames>user_id
 role</ColNames>
       <Unique>1</Unique>
@@ -9350,79 +9355,79 @@ role</ColNames>
       <CollationNames>default</CollationNames>
       <ClassIds>1978,3126</ClassIds>
     </index>
-    <key id="1737" parent="1680" name="user_roles_idx">
-      <ObjectId>2955267</ObjectId>
-      <StateNumber>11829439</StateNumber>
+    <key id="1738" parent="1680" name="user_roles_idx">
+      <ObjectId>3011913</ObjectId>
+      <StateNumber>11970068</StateNumber>
       <ColNames>user_id
 role</ColNames>
       <UnderlyingIndexName>user_roles_idx</UnderlyingIndexName>
     </key>
-    <foreign-key id="1738" parent="1680" name="user_roles_user_id_fkey">
-      <ObjectId>2955268</ObjectId>
-      <StateNumber>11829439</StateNumber>
+    <foreign-key id="1739" parent="1680" name="user_roles_user_id_fkey">
+      <ObjectId>3011914</ObjectId>
+      <StateNumber>11970068</StateNumber>
       <ColNames>user_id</ColNames>
-      <RefTableId>2955248</RefTableId>
+      <RefTableId>3011894</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="1739" parent="1681" name="id">
+    <column id="1740" parent="1681" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="1740" parent="1681" name="name">
+    <column id="1741" parent="1681" name="name">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="1741" parent="1681" name="email">
+    <column id="1742" parent="1681" name="email">
       <Position>3</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="1742" parent="1681" name="password">
+    <column id="1743" parent="1681" name="password">
       <Position>4</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="1743" parent="1681" name="registered">
+    <column id="1744" parent="1681" name="registered">
       <Position>5</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <DefaultExpression>now()</DefaultExpression>
       <TypeId>1114</TypeId>
     </column>
-    <column id="1744" parent="1681" name="price_variant">
+    <column id="1745" parent="1681" name="price_variant">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="1745" parent="1681" name="enabled">
+    <column id="1746" parent="1681" name="enabled">
       <Position>7</Position>
       <DataType>boolean|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>11829437</StateNumber>
+      <StateNumber>11970066</StateNumber>
       <DefaultExpression>true</DefaultExpression>
       <TypeId>16</TypeId>
     </column>
-    <index id="1746" parent="1681" name="users_pkey">
-      <ObjectId>2955257</ObjectId>
-      <StateNumber>11829437</StateNumber>
+    <index id="1747" parent="1681" name="users_pkey">
+      <ObjectId>3011903</ObjectId>
+      <StateNumber>11970066</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -9430,9 +9435,9 @@ role</ColNames>
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <index id="1747" parent="1681" name="users_unique_email_idx">
-      <ObjectId>2955259</ObjectId>
-      <StateNumber>11829438</StateNumber>
+    <index id="1748" parent="1681" name="users_unique_email_idx">
+      <ObjectId>3011905</ObjectId>
+      <StateNumber>11970067</StateNumber>
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
@@ -9440,9 +9445,9 @@ role</ColNames>
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="1748" parent="1681" name="users_pkey">
-      <ObjectId>2955258</ObjectId>
-      <StateNumber>11829437</StateNumber>
+    <key id="1749" parent="1681" name="users_pkey">
+      <ObjectId>3011904</ObjectId>
+      <StateNumber>11970066</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>users_pkey</UnderlyingIndexName>

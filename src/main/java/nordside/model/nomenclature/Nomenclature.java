@@ -5,6 +5,7 @@ import nordside.model.AbstractNamedEntity;
 import nordside.model.price.PriceTable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,7 @@ import java.util.Set;
 public class Nomenclature extends AbstractNamedEntity {
 
     @Column
+    @NotNull
     private String code; //from 1C
 
     @Column
@@ -44,10 +46,13 @@ public class Nomenclature extends AbstractNamedEntity {
     private double high;
 
     @Column
-    private double color;
+    private String color;
 
-    @Column
-    private double volume;
+    @Column(name = "pack_volume")
+    private double packVolume;
+
+    @Column(name = "pack_weight")
+    private double packWeight;
 
     @Column
     private int countInPack;
@@ -55,14 +60,10 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String unit;
 
-
-
-
     @OneToMany(mappedBy = "nomenclature",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
     @JsonIgnore //убрал "priceTable": null
     private Set<PriceTable> priceTable;
-
 
     public Nomenclature() {
 
@@ -70,8 +71,8 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public Nomenclature(String code, String fullName, String imageIndex,
                         String description, String section, String subsection,
-                        double length, double width, double high, double color,
-                        double volume, int countInPack, String unit) {
+                        double length, double width, double high, String color,
+                        double packVolume, double packWeight, int countInPack, String unit) {
         this.code = code;
         this.fullName = fullName;
         this.imageIndex = imageIndex;
@@ -82,7 +83,8 @@ public class Nomenclature extends AbstractNamedEntity {
         this.width = width;
         this.high = high;
         this.color = color;
-        this.volume = volume;
+        this.packVolume = packVolume;
+        this.packWeight = packWeight;
         this.countInPack = countInPack;
         this.unit = unit;
     }
@@ -91,8 +93,8 @@ public class Nomenclature extends AbstractNamedEntity {
                         String fullName, String imageIndex,
                         String description, String section,
                         String subsection, double length,
-                        double width, double high, double color,
-                        double volume, int countInPack, String unit) {
+                        double width, double high, String color,
+                        double packVolume, double packWeight, int countInPack, String unit) {
         super(id, name);
         this.code = code;
         this.fullName = fullName;
@@ -104,7 +106,8 @@ public class Nomenclature extends AbstractNamedEntity {
         this.width = width;
         this.high = high;
         this.color = color;
-        this.volume = volume;
+        this.packVolume = packVolume;
+        this.packWeight = packWeight;
         this.countInPack = countInPack;
         this.unit = unit;
     }
@@ -181,20 +184,28 @@ public class Nomenclature extends AbstractNamedEntity {
         this.high = high;
     }
 
-    public double getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(double color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
     public double getVolume() {
-        return volume;
+        return packVolume;
     }
 
-    public void setVolume(double volume) {
-        this.volume = volume;
+    public void setVolume(double packVolume) {
+        this.packVolume = packVolume;
+    }
+
+    public double getPackWeight() {
+        return packWeight;
+    }
+
+    public void setPackWeight(double packWeight) {
+        this.packWeight = packWeight;
     }
 
     public int getCountInPack() {
