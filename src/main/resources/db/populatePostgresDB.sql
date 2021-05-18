@@ -23,10 +23,10 @@ VALUES ('USER', (SELECT ID FROM USERS WHERE NAME = 'User')),
 -- 100003
 INSERT INTO nomenclature (name, fullName, unit,  code,
                           image_index, section, subsection, description,
-                          length,width,high,color,pack_volume,pack_weight,pack_square,countInPack)
+                          length,width, width_angle,high,color,pack_volume,pack_weight,pack_square,countInPack)
 values ('панель 05*250*2700 белый матовый', 'панель 05*250*2700 белый матовый', 'шт', '00000009457',
         '00000009457','Панели ПВХ', 'Панели ПВХ стеновые "Матовые"','без описания',
-        2700.00,250.00,5.00,'белый',0.0034,4.030,5.005,10);
+        2700.00,250.00,0,5.00,'белый',0.0034,4.030,5.005,10);
 
 -- 100004
 insert into price_table(price_variant,nomenclature,unit,price)

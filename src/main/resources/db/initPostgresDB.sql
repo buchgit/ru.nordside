@@ -49,6 +49,7 @@ CREATE TABLE nomenclature
     description VARCHAR,
     length      double precision,
     width       double precision,
+    width_angle double precision,
     high        double precision,
     color       varchar,
     pack_volume double precision,

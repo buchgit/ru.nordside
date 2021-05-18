@@ -42,6 +42,9 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private double width;
 
+    @Column(name = "width_angle")
+    private double widthAngle;
+
     @Column
     private double high;
 
@@ -74,7 +77,7 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public Nomenclature(String code, String fullName, String imageIndex,
                         String description, String section, String subsection,
-                        double length, double width, double high, String color,
+                        double length, double width,double widthAngle, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         this.code = code;
         this.fullName = fullName;
@@ -84,6 +87,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.subsection = subsection;
         this.length = length;
         this.width = width;
+        this.widthAngle = widthAngle;
         this.high = high;
         this.color = color;
         this.packVolume = packVolume;
@@ -97,7 +101,7 @@ public class Nomenclature extends AbstractNamedEntity {
                         String fullName, String imageIndex,
                         String description, String section,
                         String subsection, double length,
-                        double width, double high, String color,
+                        double width,double widthAngle, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         super(id, name);
         this.code = code;
@@ -108,6 +112,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.subsection = subsection;
         this.length = length;
         this.width = width;
+        this.widthAngle = widthAngle;
         this.high = high;
         this.color = color;
         this.packVolume = packVolume;
@@ -179,6 +184,14 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public void setWidth(double width) {
         this.width = width;
+    }
+
+    public double getWidthAngle() {
+        return widthAngle;
+    }
+
+    public void setWidthAngle(double widthAngle) {
+        this.widthAngle = widthAngle;
     }
 
     public double getHigh() {
