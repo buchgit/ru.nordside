@@ -45,6 +45,9 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private double high;
 
+    @Column(name = "pack_square")
+    private double packSquare;
+
     @Column
     private String color;
 
@@ -72,7 +75,7 @@ public class Nomenclature extends AbstractNamedEntity {
     public Nomenclature(String code, String fullName, String imageIndex,
                         String description, String section, String subsection,
                         double length, double width, double high, String color,
-                        double packVolume, double packWeight, int countInPack, String unit) {
+                        double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         this.code = code;
         this.fullName = fullName;
         this.imageIndex = imageIndex;
@@ -86,6 +89,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.packVolume = packVolume;
         this.packWeight = packWeight;
         this.countInPack = countInPack;
+        this.packSquare = packSquare;
         this.unit = unit;
     }
 
@@ -94,7 +98,7 @@ public class Nomenclature extends AbstractNamedEntity {
                         String description, String section,
                         String subsection, double length,
                         double width, double high, String color,
-                        double packVolume, double packWeight, int countInPack, String unit) {
+                        double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         super(id, name);
         this.code = code;
         this.fullName = fullName;
@@ -108,6 +112,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.color = color;
         this.packVolume = packVolume;
         this.packWeight = packWeight;
+        this.packSquare = packSquare;
         this.countInPack = countInPack;
         this.unit = unit;
     }
@@ -206,6 +211,22 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public void setPackWeight(double packWeight) {
         this.packWeight = packWeight;
+    }
+
+    public double getPackSquare() {
+        return packSquare;
+    }
+
+    public void setPackSquare(double packSquare) {
+        this.packSquare = packSquare;
+    }
+
+    public double getPackVolume() {
+        return packVolume;
+    }
+
+    public void setPackVolume(double packVolume) {
+        this.packVolume = packVolume;
     }
 
     public int getCountInPack() {
