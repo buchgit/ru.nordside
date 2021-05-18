@@ -42,8 +42,13 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private double width;
 
-    @Column(name = "width_angle")
-    private double widthAngle;
+    @Column
+    private double size1;
+    @Column
+    private double size2;
+
+    @Column
+    private double diameter;
 
     @Column
     private double high;
@@ -77,7 +82,7 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public Nomenclature(String code, String fullName, String imageIndex,
                         String description, String section, String subsection,
-                        double length, double width,double widthAngle, double high, String color,
+                        double length, double width,double size1,double size2, double diameter, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         this.code = code;
         this.fullName = fullName;
@@ -87,7 +92,9 @@ public class Nomenclature extends AbstractNamedEntity {
         this.subsection = subsection;
         this.length = length;
         this.width = width;
-        this.widthAngle = widthAngle;
+        this.size1 = size1;
+        this.size2 = size2;
+        this.diameter = diameter;
         this.high = high;
         this.color = color;
         this.packVolume = packVolume;
@@ -101,7 +108,7 @@ public class Nomenclature extends AbstractNamedEntity {
                         String fullName, String imageIndex,
                         String description, String section,
                         String subsection, double length,
-                        double width,double widthAngle, double high, String color,
+                        double width,double size1,double size2, double diameter, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         super(id, name);
         this.code = code;
@@ -112,7 +119,9 @@ public class Nomenclature extends AbstractNamedEntity {
         this.subsection = subsection;
         this.length = length;
         this.width = width;
-        this.widthAngle = widthAngle;
+        this.size1 = size1;
+        this.size2 = size2;
+        this.diameter = diameter;
         this.high = high;
         this.color = color;
         this.packVolume = packVolume;
@@ -186,12 +195,28 @@ public class Nomenclature extends AbstractNamedEntity {
         this.width = width;
     }
 
-    public double getWidthAngle() {
-        return widthAngle;
+    public double getSize1() {
+        return size1;
     }
 
-    public void setWidthAngle(double widthAngle) {
-        this.widthAngle = widthAngle;
+    public void setSize1(double size1) {
+        this.size1 = size1;
+    }
+
+    public double getSize2() {
+        return size2;
+    }
+
+    public void setSize2(double size2) {
+        this.size2 = size2;
+    }
+
+    public double getSize3() {
+        return diameter;
+    }
+
+    public void setSize3(double size3) {
+        this.diameter = size3;
     }
 
     public double getHigh() {
