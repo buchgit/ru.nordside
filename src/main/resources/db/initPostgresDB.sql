@@ -13,7 +13,8 @@ CREATE SEQUENCE global_seq START WITH 100000;
 create table price_variant
 (
     id   Integer primary key default nextval('global_seq'),
-    name varchar not null
+    name varchar not null,
+    code varchar
 );
 
 CREATE TABLE users

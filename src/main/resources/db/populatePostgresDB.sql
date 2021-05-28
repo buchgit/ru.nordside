@@ -8,8 +8,8 @@ DELETE From nomenclature;
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 -- 100000
-insert into price_variant(name)
-values ('default');
+insert into price_variant(name,code)
+values ('default','');
 -- 100001,100002
 INSERT INTO users (name, email, password,price_variant)
 VALUES ('User', 'user@gmail.com', '{noop}user',(SELECT ID FROM price_variant WHERE NAME = 'default')),

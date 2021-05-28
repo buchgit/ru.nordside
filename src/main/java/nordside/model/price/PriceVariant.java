@@ -19,6 +19,8 @@ public class PriceVariant extends AbstractNamedEntity {
     @JsonManagedReference(value = "price_variant")
     private Set<PriceTable> priceTable;
 
+    @Column
+    private String code;
 
     public PriceVariant() {
     }
