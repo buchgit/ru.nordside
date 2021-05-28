@@ -1,5 +1,6 @@
 package nordside.web;
 
+import nordside.LoggedUser;
 import nordside.model.nomenclature.Nomenclature;
 import nordside.model.order.Order;
 import nordside.model.price.PriceTable;
@@ -8,6 +9,8 @@ import nordside.model.user.User;
 import nordside.service.OrderService;
 import nordside.service.PriceTableService;
 import nordside.service.UserService;
+import nordside.web.jwt.JwtProvider;
+import nordside.web.jwt.ResponseToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,8 @@ public class UserController {
 
     private OrderService orderService;
 
+    private JwtProvider jwtProvider;
+
     @Autowired
     public UserController(UserService userService, PriceTableService priceTableService, OrderService orderService) {
         this.userService = userService;
@@ -58,6 +63,22 @@ public class UserController {
             logger.info("create(user) {} ", createdUser.getName());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
+    }
+
+//    @PostMapping("/register")
+//    public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
+//        UserEntity u = new UserEntity();
+//        u.setPassword(registrationRequest.getPassword());
+//        u.setLogin(registrationRequest.getLogin());
+//        userService.saveUser(u);
+//        return "OK";
+//    }
+
+    @PostMapping("/auth")
+    public ResponseToken auth(@RequestBody User user) {
+        LoggedUser loggedUser = userService.loadUserByUsername(user.getEmail());
+        String token = jwtProvider.generateToken(loggedUser.getUsername());
+        return new ResponseToken(token);
     }
 
     @GetMapping(value = "auth/email", produces = MediaType.APPLICATION_JSON_VALUE)
