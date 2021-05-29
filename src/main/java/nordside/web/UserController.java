@@ -45,10 +45,11 @@ public class UserController {
     private JwtProvider jwtProvider;
 
     @Autowired
-    public UserController(UserService userService, PriceTableService priceTableService, OrderService orderService) {
+    public UserController(UserService userService, PriceTableService priceTableService, OrderService orderService, JwtProvider jwtProvider) {
         this.userService = userService;
         this.priceTableService = priceTableService;
         this.orderService = orderService;
+        this.jwtProvider = jwtProvider;
     }
 
     @PostMapping(value = "registration", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -77,7 +78,8 @@ public class UserController {
     @PostMapping("/auth")
     public ResponseToken auth(@RequestBody User user) {
         LoggedUser loggedUser = userService.loadUserByUsername(user.getEmail());
-        String token = jwtProvider.generateToken(loggedUser.getUsername());
+        String username = loggedUser.getUsername();
+        String token = jwtProvider.generateToken(username);
         return new ResponseToken(token);
     }
 
