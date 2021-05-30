@@ -78,8 +78,8 @@ public class UserController {
     @PostMapping("/auth")
     public ResponseToken auth(@RequestBody User user) {
         LoggedUser loggedUser = userService.loadUserByUsername(user.getEmail());
-        String username = loggedUser.getUsername();
-        String token = jwtProvider.generateToken(username);
+        String email = loggedUser.getUsername();
+        String token = jwtProvider.generateToken(email);
         return new ResponseToken(token);
     }
 
