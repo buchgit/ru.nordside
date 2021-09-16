@@ -14,7 +14,7 @@ create table price_variant
 (
     id   Integer primary key default nextval('global_seq'),
     name varchar not null,
-    code varchar
+    code varchar default ''
 );
 
 CREATE TABLE users

@@ -57,7 +57,7 @@ public class UserController {
         if (result.hasErrors()) {
             return getStringResponseEntity(result, logger);
         } else {
-            Set<Role> roles = new HashSet<Role>();
+            Set<Role> roles = new HashSet<>();
             roles.add(Role.USER);
             user.setRoles(roles);
             User createdUser = userService.create(user);
@@ -75,13 +75,13 @@ public class UserController {
 //        return "OK";
 //    }
 
-    @PostMapping("/auth")
-    public ResponseToken auth(@RequestBody User user) {
-        LoggedUser loggedUser = userService.loadUserByUsername(user.getEmail());
-        String email = loggedUser.getUsername();
-        String token = jwtProvider.generateToken(email);
-        return new ResponseToken(token);
-    }
+//    @PostMapping("/auth")
+//    public ResponseToken auth(@RequestBody User user) {
+//        LoggedUser loggedUser = userService.loadUserByUsername(user.getEmail());
+//        String email = loggedUser.getUsername();
+//        String token = jwtProvider.generateToken(email);
+//        return new ResponseToken(token);
+//    }
 
     @GetMapping(value = "auth/email", produces = MediaType.APPLICATION_JSON_VALUE)
     public User authByEmail(@RequestParam String email) {
