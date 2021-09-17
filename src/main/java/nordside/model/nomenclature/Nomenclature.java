@@ -30,8 +30,9 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String description;
 
-    @Column
-    private String section;
+    @Column(name = "category")
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private NomenclatureCategory category;
 
     @Column
     private String subsection;
@@ -81,14 +82,14 @@ public class Nomenclature extends AbstractNamedEntity {
     }
 
     public Nomenclature(String code, String fullName, String imageIndex,
-                        String description, String section, String subsection,
+                        String description, NomenclatureCategory category, String subsection,
                         double length, double width,double size1,double size2, double diameter, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         this.code = code;
         this.fullName = fullName;
         this.imageIndex = imageIndex;
         this.description = description;
-        this.section = section;
+        this.category = category;
         this.subsection = subsection;
         this.length = length;
         this.width = width;
@@ -106,7 +107,7 @@ public class Nomenclature extends AbstractNamedEntity {
 
     public Nomenclature(Integer id, String name, String code,
                         String fullName, String imageIndex,
-                        String description, String section,
+                        String description, NomenclatureCategory category,
                         String subsection, double length,
                         double width,double size1,double size2, double diameter, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
@@ -115,7 +116,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.fullName = fullName;
         this.imageIndex = imageIndex;
         this.description = description;
-        this.section = section;
+        this.category = category;
         this.subsection = subsection;
         this.length = length;
         this.width = width;
@@ -163,12 +164,12 @@ public class Nomenclature extends AbstractNamedEntity {
         this.description = description;
     }
 
-    public String getSection() {
-        return section;
+    public NomenclatureCategory getSection() {
+        return category;
     }
 
-    public void setSection(String section) {
-        this.section = section;
+    public void setSection(NomenclatureCategory section) {
+        this.category = section;
     }
 
     public String getSubsection() {

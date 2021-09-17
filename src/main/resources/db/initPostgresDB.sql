@@ -5,10 +5,17 @@ DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 drop table if exists price_variant;
+drop table if exists nomenclature_category;
 
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
+
+create table nomenclature_category
+(
+    id   Integer primary key default nextval('global_seq'),
+    name varchar not null
+);
 
 create table price_variant
 (
@@ -45,7 +52,7 @@ CREATE TABLE nomenclature
     unit        varchar,
     code        VARCHAR not null ,
     image_index VARCHAR,
-    section     VARCHAR,
+    category    integer not null ,
     subsection  VARCHAR,
     description VARCHAR,
     length      double precision,
@@ -58,7 +65,8 @@ CREATE TABLE nomenclature
     pack_volume double precision,
     pack_weight double precision,
     pack_square double precision,
-    countInPack integer
+    countInPack integer,
+    foreign key (category) references nomenclature_category(id)
 );
 create unique index nomenclature_code_idx on nomenclature (code);
 
