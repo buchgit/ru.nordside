@@ -1,16 +1,15 @@
 package nordside.web;
 
-import nordside.LoggedUser;
+import nordside.model.Partner;
 import nordside.model.nomenclature.Nomenclature;
+import nordside.model.nomenclature.NomenclatureCategory;
+import nordside.model.nomenclature.NomenclatureCollection;
 import nordside.model.order.Order;
 import nordside.model.price.PriceTable;
 import nordside.model.user.Role;
 import nordside.model.user.User;
-import nordside.service.OrderService;
-import nordside.service.PriceTableService;
-import nordside.service.UserService;
+import nordside.service.*;
 import nordside.web.jwt.JwtProvider;
-import nordside.web.jwt.ResponseToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,20 +33,31 @@ public class UserController {
     static final String REST_URL = "rest/user/";
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    private UserService userService;
-
-    private PriceTableService priceTableService;
-
-    private OrderService orderService;
-
+    private final UserService userService;
+    private final PriceTableService priceTableService;
+    private final OrderService orderService;
+    private final NomenclatureCategoryService nomenclatureCategoryService;
+    private final NomenclatureCollectionService nomenclatureCollectionService;
+    private final NomenclatureService nomenclatureService;
+    private final PartnerService partnerService;
     private JwtProvider jwtProvider;
 
     @Autowired
-    public UserController(UserService userService, PriceTableService priceTableService, OrderService orderService, JwtProvider jwtProvider) {
+    public UserController(UserService userService,
+                          PriceTableService priceTableService,
+                          OrderService orderService,
+                          NomenclatureCategoryService nomenclatureCategoryService ,
+                          NomenclatureCollectionService nomenclatureCollectionService,
+                          NomenclatureService nomenclatureService,
+                          PartnerService partnerService,
+                          JwtProvider jwtProvider) {
         this.userService = userService;
         this.priceTableService = priceTableService;
         this.orderService = orderService;
+        this.nomenclatureCategoryService = nomenclatureCategoryService;
+        this.nomenclatureCollectionService = nomenclatureCollectionService;
+        this.nomenclatureService = nomenclatureService;
+        this.partnerService = partnerService;
         this.jwtProvider = jwtProvider;
     }
 
@@ -125,6 +134,28 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateOrder(@Valid @RequestBody Order order){
         orderService.update(order);
+    }
+
+    @GetMapping(value = "category/all")
+    public List<NomenclatureCategory> getAllNomenclatureCategory(){
+        return nomenclatureCategoryService.getAll();
+    }
+
+    @GetMapping(value = "collection/category/{id}")
+    public List<NomenclatureCollection> getCollectionByCategory(@PathVariable String id){
+        Integer categoryId = Integer.parseInt(id);
+        return nomenclatureCollectionService.getByCategory(categoryId);
+    }
+
+    @GetMapping(value = "nomenclature/collection/{id}")
+    public List<Nomenclature> getNomenclatureByCollection(@PathVariable String id){
+        Integer collectionId = Integer.parseInt(id);
+        return nomenclatureService.getByCollection(collectionId);
+    }
+
+    @GetMapping(value = "partner/all")
+    public List<Partner> getAllPartner(){
+        return partnerService.getAllPartners();
     }
 
 }

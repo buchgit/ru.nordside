@@ -14,17 +14,21 @@ import java.util.List;
 @Service("nomenclatureService")
 public class NomenclatureService {
 
-    private final NomenclatureRepository nomenclatureRepository;
+    private final NomenclatureRepository repository;
 
     @Autowired
     public NomenclatureService(NomenclatureRepository nomenclatureRepository) {
-        this.nomenclatureRepository = nomenclatureRepository;
+        this.repository = nomenclatureRepository;
     }
 
     @Transactional
     @Modifying
     public int updateNomenclature (List<Nomenclature> nomenclatureList){
         Assert.notEmpty(nomenclatureList, Messages.NOMENCLATURE_LIST_IS_EMPTY);
-        return nomenclatureRepository.saveAll(nomenclatureList).size();
+        return repository.saveAll(nomenclatureList).size();
+    }
+
+    public List<Nomenclature> getByCollection(Integer collectionId){
+        return repository.getByCollection(collectionId);
     }
 }

@@ -30,12 +30,13 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String description;
 
-    @Column(name = "category")
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "category")
     private NomenclatureCategory category;
 
-    @Column
-    private String subsection;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "nomenclature_collection")
+    private NomenclatureCollection nomenclatureCollection;
 
     @Column
     private double length;
@@ -82,7 +83,7 @@ public class Nomenclature extends AbstractNamedEntity {
     }
 
     public Nomenclature(String code, String fullName, String imageIndex,
-                        String description, NomenclatureCategory category, String subsection,
+                        String description, NomenclatureCategory category, NomenclatureCollection nomenclatureCollection,
                         double length, double width,double size1,double size2, double diameter, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         this.code = code;
@@ -90,7 +91,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.imageIndex = imageIndex;
         this.description = description;
         this.category = category;
-        this.subsection = subsection;
+        this.nomenclatureCollection = nomenclatureCollection;
         this.length = length;
         this.width = width;
         this.size1 = size1;
@@ -108,7 +109,7 @@ public class Nomenclature extends AbstractNamedEntity {
     public Nomenclature(Integer id, String name, String code,
                         String fullName, String imageIndex,
                         String description, NomenclatureCategory category,
-                        String subsection, double length,
+                        NomenclatureCollection nomenclatureCollection, double length,
                         double width,double size1,double size2, double diameter, double high, String color,
                         double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
         super(id, name);
@@ -117,7 +118,7 @@ public class Nomenclature extends AbstractNamedEntity {
         this.imageIndex = imageIndex;
         this.description = description;
         this.category = category;
-        this.subsection = subsection;
+        this.nomenclatureCollection = nomenclatureCollection;
         this.length = length;
         this.width = width;
         this.size1 = size1;
@@ -164,20 +165,28 @@ public class Nomenclature extends AbstractNamedEntity {
         this.description = description;
     }
 
-    public NomenclatureCategory getSection() {
+    public NomenclatureCategory getCategory() {
         return category;
     }
 
-    public void setSection(NomenclatureCategory section) {
-        this.category = section;
+    public void setCategory(NomenclatureCategory category) {
+        this.category = category;
     }
 
-    public String getSubsection() {
-        return subsection;
+    public NomenclatureCollection getNomenclatureCollection() {
+        return nomenclatureCollection;
     }
 
-    public void setSubsection(String subsection) {
-        this.subsection = subsection;
+    public void setNomenclatureCollection(NomenclatureCollection nomenclatureCollection) {
+        this.nomenclatureCollection = nomenclatureCollection;
+    }
+
+    public double getDiameter() {
+        return diameter;
+    }
+
+    public void setDiameter(double diameter) {
+        this.diameter = diameter;
     }
 
     public double getLength() {

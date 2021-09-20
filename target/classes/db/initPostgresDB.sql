@@ -1,3 +1,4 @@
+drop table if exists partners;
 drop table if exists order_merchandise;
 drop table if exists orders;
 drop table if exists price_table;
@@ -5,16 +6,42 @@ DROP TABLE IF EXISTS nomenclature;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 drop table if exists price_variant;
+drop table if exists nomenclature_collection;
+drop table if exists nomenclature_category;
 
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
 
+create table partners(
+    id integer primary key default nextval('global_seq'),
+    name varchar not null ,
+    telephone varchar,
+    site varchar,
+    address varchar
+);
+create unique index partners_unique_name_idx on partners(name);
+
+create table nomenclature_category
+(
+    id   Integer primary key default nextval('global_seq'),
+    name varchar not null
+);
+
+create table nomenclature_collection
+(
+    id   integer primary key default nextval('global_seq'),
+    name varchar not null,
+    category integer not null ,
+    CONSTRAINT name_category_idx UNIQUE (name, category),
+    foreign key (category) references nomenclature_category(id)
+);
+
 create table price_variant
 (
     id   Integer primary key default nextval('global_seq'),
     name varchar not null,
-    code varchar
+    code varchar default ''
 );
 
 CREATE TABLE users
@@ -45,8 +72,8 @@ CREATE TABLE nomenclature
     unit        varchar,
     code        VARCHAR not null ,
     image_index VARCHAR,
-    section     VARCHAR,
-    subsection  VARCHAR,
+    category    integer not null ,
+    nomenclature_collection  integer not null ,
     description VARCHAR,
     length      double precision,
     width       double precision,
@@ -58,7 +85,8 @@ CREATE TABLE nomenclature
     pack_volume double precision,
     pack_weight double precision,
     pack_square double precision,
-    countInPack integer
+    countInPack integer,
+    foreign key (category) references nomenclature_category(id)
 );
 create unique index nomenclature_code_idx on nomenclature (code);
 

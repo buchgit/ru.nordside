@@ -7,7 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>ru.nordside</artifactId>
     <packaging>war</packaging>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
     
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
