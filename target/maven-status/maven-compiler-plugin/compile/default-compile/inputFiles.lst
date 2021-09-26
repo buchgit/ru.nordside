@@ -1,3 +1,4 @@
+C:\programming\nordside\src\main\java\nordside\repository\CartRepository.java
 C:\programming\nordside\src\main\java\nordside\service\UserService.java
 C:\programming\nordside\src\main\java\nordside\model\price\PriceVariant.java
 C:\programming\nordside\src\main\java\nordside\LoggedUser.java
@@ -26,8 +27,10 @@ C:\programming\nordside\src\main\java\nordside\service\OrderService.java
 C:\programming\nordside\src\main\java\nordside\model\nomenclature\Nomenclature.java
 C:\programming\nordside\src\main\java\nordside\model\AbstractNamedEntity.java
 C:\programming\nordside\src\main\java\nordside\web\TestController.java
-C:\programming\nordside\src\main\java\nordside\model\order\Order.java
+C:\programming\nordside\src\main\java\nordside\model\cart\CartItem.java
+C:\programming\nordside\src\main\java\nordside\service\CustomPasswordEncoder.java
 C:\programming\nordside\src\main\java\nordside\repository\NomenclatureRepository.java
+C:\programming\nordside\src\main\java\nordside\service\CustomUserDetailService.java
 C:\programming\nordside\src\main\java\nordside\model\AbstractBaseEntity.java
 C:\programming\nordside\src\main\java\nordside\web\RootController.java
 C:\programming\nordside\src\main\java\nordside\repository\PartnerRepository.java
@@ -36,6 +39,10 @@ C:\programming\nordside\src\main\java\nordside\model\user\User.java
 C:\programming\nordside\src\main\java\nordside\service\NomenclatureCollectionService.java
 C:\programming\nordside\src\main\java\nordside\web\UserController.java
 C:\programming\nordside\src\main\java\nordside\service\NomenclatureService.java
+C:\programming\nordside\src\main\java\nordside\web\jwt\Credentials.java
 C:\programming\nordside\src\main\java\nordside\repository\PriceVariantRepository.java
+C:\programming\nordside\src\main\java\nordside\service\CartService.java
 C:\programming\nordside\src\main\java\nordside\model\Partner.java
+C:\programming\nordside\src\main\java\nordside\web\SecurityConfig.java
 C:\programming\nordside\src\main\java\nordside\model\nomenclature\NomenclatureCollection.java
+C:\programming\nordside\src\main\java\nordside\model\order\ClientOrder.java

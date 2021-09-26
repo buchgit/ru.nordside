@@ -2,11 +2,13 @@ package nordside.model.nomenclature;
 
 import com.fasterxml.jackson.annotation.*;
 import nordside.model.AbstractNamedEntity;
+import nordside.model.cart.CartItem;
 import nordside.model.price.PriceTable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -78,6 +80,12 @@ public class Nomenclature extends AbstractNamedEntity {
     @JsonIgnore //убрал "priceTable": null
     private Set<PriceTable> priceTable;
 
+    @ManyToMany
+    @JoinTable(name = "nomenclature_cart_item",joinColumns = @JoinColumn(name = "nomenclature_id"),
+    inverseJoinColumns = @JoinColumn(name = "cart_item_id"))
+    @JsonIgnore
+    private Set<CartItem> cartItems = new HashSet<>();
+
     public Nomenclature() {
 
     }
@@ -106,12 +114,20 @@ public class Nomenclature extends AbstractNamedEntity {
         this.unit = unit;
     }
 
+    public Set<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
     public Nomenclature(Integer id, String name, String code,
                         String fullName, String imageIndex,
                         String description, NomenclatureCategory category,
                         NomenclatureCollection nomenclatureCollection, double length,
-                        double width,double size1,double size2, double diameter, double high, String color,
-                        double packVolume, double packWeight,double packSquare, int countInPack, String unit) {
+                        double width, double size1, double size2, double diameter, double high, String color,
+                        double packVolume, double packWeight, double packSquare, int countInPack, String unit) {
         super(id, name);
         this.code = code;
         this.fullName = fullName;

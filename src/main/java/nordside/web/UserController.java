@@ -1,28 +1,35 @@
 package nordside.web;
 
+import nordside.LoggedUser;
 import nordside.model.Partner;
+import nordside.model.cart.CartItem;
 import nordside.model.nomenclature.Nomenclature;
 import nordside.model.nomenclature.NomenclatureCategory;
 import nordside.model.nomenclature.NomenclatureCollection;
-import nordside.model.order.Order;
+import nordside.model.order.ClientOrder;
 import nordside.model.price.PriceTable;
 import nordside.model.user.Role;
 import nordside.model.user.User;
 import nordside.service.*;
+import nordside.web.jwt.Credentials;
 import nordside.web.jwt.JwtProvider;
+import nordside.web.jwt.ResponseToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 import static nordside.utils.ValidationUtil.getStringResponseEntity;
 
@@ -40,6 +47,7 @@ public class UserController {
     private final NomenclatureCollectionService nomenclatureCollectionService;
     private final NomenclatureService nomenclatureService;
     private final PartnerService partnerService;
+    private final CartService cartService;
     private JwtProvider jwtProvider;
 
     @Autowired
@@ -50,6 +58,7 @@ public class UserController {
                           NomenclatureCollectionService nomenclatureCollectionService,
                           NomenclatureService nomenclatureService,
                           PartnerService partnerService,
+                          CartService cartService,
                           JwtProvider jwtProvider) {
         this.userService = userService;
         this.priceTableService = priceTableService;
@@ -58,6 +67,7 @@ public class UserController {
         this.nomenclatureCollectionService = nomenclatureCollectionService;
         this.nomenclatureService = nomenclatureService;
         this.partnerService = partnerService;
+        this.cartService = cartService;
         this.jwtProvider = jwtProvider;
     }
 
@@ -84,13 +94,16 @@ public class UserController {
 //        return "OK";
 //    }
 
-//    @PostMapping("/auth")
-//    public ResponseToken auth(@RequestBody User user) {
-//        LoggedUser loggedUser = userService.loadUserByUsername(user.getEmail());
-//        String email = loggedUser.getUsername();
-//        String token = jwtProvider.generateToken(email);
-//        return new ResponseToken(token);
-//    }
+
+    @PostMapping(value = "auth",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseToken auth(@RequestBody Credentials credentials) {
+//        Logger logger = LoggerFactory.getLogger("auth");
+//        logger.info("auth");
+        String email = credentials.getEmail();
+        String token = jwtProvider.generateToken(email);
+        return new ResponseToken(token);
+        //return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     @GetMapping(value = "auth/email", produces = MediaType.APPLICATION_JSON_VALUE)
     public User authByEmail(@RequestParam String email) {
@@ -103,28 +116,28 @@ public class UserController {
         return priceTableService.getFullPriceByUser(userService.getByEmail(email));
     }
 
-    //orders
+    //clientOrders
     @GetMapping(value = "order/all")
-    public List<Order> getAllOrders(){
+    public List<ClientOrder> getAllOrders(){
         return orderService.getAllOrders();
     }
 
     @GetMapping(value = "order/email")
-    public List<Order> getOrdersByEmail(@RequestParam String email){
+    public List<ClientOrder> getOrdersByEmail(@RequestParam String email){
         return orderService.getOrdersByEmail(email);
     }
 
     @GetMapping(value = "order/email/status")
-    public List<Order> getOrdersByEmailStatus(@RequestParam String email, @RequestParam String status){
+    public List<ClientOrder> getOrdersByEmailStatus(@RequestParam String email, @RequestParam String status){
         return orderService.getOrdersByEmailStatus(email, status);
     }
 
     @PostMapping(value = "order/create")
-    public ResponseEntity<String> createOrder(@Valid @RequestBody Order order,BindingResult result){
+    public ResponseEntity<String> createOrder(@Valid @RequestBody ClientOrder clientOrder, BindingResult result){
         if (result.hasErrors()){
             return getStringResponseEntity(result, logger);
         }else {
-            Order created = orderService.create(order);
+            ClientOrder created = orderService.create(clientOrder);
             logger.info("created order number "+ created.getNumber_For1c());
             return new ResponseEntity<> (HttpStatus.CREATED);
         }
@@ -132,12 +145,13 @@ public class UserController {
 
     @PutMapping(value = "order/update",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateOrder(@Valid @RequestBody Order order){
-        orderService.update(order);
+    public void updateOrder(@Valid @RequestBody ClientOrder clientOrder){
+        orderService.update(clientOrder);
     }
 
     @GetMapping(value = "category/all")
-    public List<NomenclatureCategory> getAllNomenclatureCategory(){
+    public List<NomenclatureCategory> getAllNomenclatureCategory(@AuthenticationPrincipal LoggedUser loggedUser){
+
         return nomenclatureCategoryService.getAll();
     }
 
@@ -156,6 +170,22 @@ public class UserController {
     @GetMapping(value = "partner/all")
     public List<Partner> getAllPartner(){
         return partnerService.getAllPartners();
+    }
+
+    @GetMapping(value = "cart/email")
+    public List<CartItem> getCartItemByEmail(@RequestParam String email){
+        return cartService.getCartItemByEmail(email);
+    }
+
+    @PostMapping(value = "cart/create",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createOrder(@Valid @RequestBody CartItem cartItem,BindingResult result){
+        if (result.hasErrors()){
+            return getStringResponseEntity(result, logger);
+        }else {
+            CartItem created = cartService.create(cartItem);
+            logger.info("added into cart "+ created.getNomenclature().size() + "positions");
+            return new ResponseEntity<> (HttpStatus.CREATED);
+        }
     }
 
 }

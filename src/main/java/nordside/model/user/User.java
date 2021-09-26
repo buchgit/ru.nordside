@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nordside.model.AbstractNamedEntity;
+import nordside.model.cart.CartItem;
 import nordside.model.price.PriceVariant;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
-import nordside.model.order.Order;
+import nordside.model.order.ClientOrder;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -56,9 +57,13 @@ public class User extends AbstractNamedEntity {
     private PriceVariant priceVariant;
 
 
-    @OneToMany(mappedBy = "client",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "client")
-    private Set<Order> orders;
+    private Set<ClientOrder> clientOrders;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<CartItem> cartItems;
 
     public User() {
     }
@@ -67,7 +72,7 @@ public class User extends AbstractNamedEntity {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Set<Order>orders, Role... roles) {
+    public User(Integer id, String name, String email, String password, Role role, Set<ClientOrder> clientOrders, Role... roles) {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
@@ -128,12 +133,12 @@ public class User extends AbstractNamedEntity {
         this.priceVariant = priceVariant;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<ClientOrder> getOrders() {
+        return clientOrders;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setOrders(Set<ClientOrder> clientOrders) {
+        this.clientOrders = clientOrders;
     }
 
     @Override

@@ -56,5 +56,17 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <!--    jwt-token-->
+<!--    <filter>-->
+<!--        <filter-name>springSecurityTokenFilter</filter-name>-->
+<!--        <filter-class>nordside.web.jwt.JwtFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>springSecurityTokenFilter</filter-name>-->
+<!--        <url-pattern>/rest/**</url-pattern>-->
+<!--    </filter-mapping>-->
+    
+    
 
 </web-app>

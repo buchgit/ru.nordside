@@ -1,7 +1,7 @@
 package nordside.service;
 
 import nordside.exceptions.NotFoundException;
-import nordside.model.order.Order;
+import nordside.model.order.ClientOrder;
 import nordside.model.order.OrderStatus;
 import nordside.model.user.User;
 import nordside.repository.OrderRepository;
@@ -28,17 +28,17 @@ public class OrderService {
     }
 
 
-    public List<Order> getAllOrders() {
+    public List<ClientOrder> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    public List<Order> getOrdersByEmail(String email) {
+    public List<ClientOrder> getOrdersByEmail(String email) {
         Assert.notNull(email,Messages.EMAIL_IS_NULL);
         Assert.notEmpty(Collections.singleton(email),Messages.EMAIL_IS_EMPTY);
         return orderRepository.findByEmail(email.toLowerCase());
     }
 
-    public List<Order> getOrdersByEmailStatus(String email, String status) {
+    public List<ClientOrder> getOrdersByEmailStatus(String email, String status) {
         Assert.notNull(email, Messages.EMAIL_IS_NULL);
         Assert.notEmpty(Collections.singleton(email),Messages.STATUS_IS_EMPTY);
         Assert.notNull(status, Messages.STATUS_IS_NULL);
@@ -49,24 +49,24 @@ public class OrderService {
 
     @Transactional
     @Modifying
-    public Order create(Order order) {
-        Assert.notNull(order,Messages.ORDER_IS_NULL);
-        User user = (User)userRepository.findByEmail(order.getClient().getEmail()).orElse(null);
+    public ClientOrder create(ClientOrder clientOrder) {
+        Assert.notNull(clientOrder,Messages.ORDER_IS_NULL);
+        User user = (User)userRepository.findByEmail(clientOrder.getClient().getEmail()).orElse(null);
         if (user!=null){
-            order.setClient(user);
+            clientOrder.setClient(user);
         }
 
-        return orderRepository.save(order);
+        return orderRepository.save(clientOrder);
     }
 
     @Transactional
     @Modifying
-    public void update(Order order) {
-        Assert.notNull(order,Messages.ORDER_IS_NULL);
-        Order existing = orderRepository.getOrderByNumberFor1c(order.getNumber_For1c()).orElse(null);
+    public void update(ClientOrder clientOrder) {
+        Assert.notNull(clientOrder,Messages.ORDER_IS_NULL);
+        ClientOrder existing = orderRepository.getOrderByNumberFor1c(clientOrder.getNumber_For1c()).orElse(null);
         if (existing != null){
             User user = (User)userRepository.findByEmail(existing.getClient().getEmail()).orElse(null);
-            existing.fillFrom(order);
+            existing.fillFrom(clientOrder);
             //юзера восстанавливаем того, который был изначально, иначе ошибка записи пользователя с уже занятой почтой
             if (user!=null){
                 existing.setClient(user);

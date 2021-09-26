@@ -1,4 +1,6 @@
 drop table if exists partners;
+drop table if exists nomenclature_cart_item;
+drop table if exists cart_items;
 drop table if exists order_merchandise;
 drop table if exists orders;
 drop table if exists price_table;
@@ -122,4 +124,22 @@ create table order_merchandise(
     foreign key (merchandise_id) references price_table(id)
 );
 
+create table cart_items (
+    id integer primary key default nextval('global_seq'),
+    user_id integer not null ,
+    nomenclature_id integer not null ,
+    price double precision default 0.00,
+    count double precision default 0.00,
+    create_date timestamp default now() not null,
+    foreign key (user_id) references users(id),
+    foreign key (nomenclature_id) references nomenclature(id)
+);
+create unique index cart_items_unique_nomenclature_id_idx on cart_items(nomenclature_id);
 
+create table nomenclature_cart_item(
+    id integer primary key default nextval('global_seq'),
+    nomenclature_id integer not null ,
+    cart_item_id integer not null ,
+    foreign key (nomenclature_id) references nomenclature(id),
+    foreign key (cart_item_id) references cart_items(id)
+);

@@ -1,14 +1,17 @@
 nordside\exceptions\NotFoundException.class
 nordside\model\nomenclature\Nomenclature.class
 nordside\repository\NomenclatureCategoryRepository.class
-nordside\model\order\Order.class
+nordside\model\order\ClientOrder.class
+nordside\model\cart\CartItem.class
 nordside\service\PriceTableService.class
 nordside\model\AbstractNamedEntity.class
 nordside\web\TestController.class
 nordside\web\json\JacksonObjectMapper.class
 nordside\LoggedUser.class
+nordside\service\CustomUserDetailService.class
 nordside\model\user\Role.class
 nordside\web\jwt\JwtFilter.class
+nordside\web\SecurityConfig.class
 nordside\model\user\User.class
 nordside\repository\NomenclatureCollectionRepository.class
 nordside\repository\UserRepository.class
@@ -23,6 +26,7 @@ nordside\model\Partner.class
 nordside\repository\PartnerRepository.class
 nordside\web\jwt\ResponseToken.class
 nordside\service\NomenclatureCategoryService.class
+nordside\service\CustomPasswordEncoder.class
 nordside\utils\ValidationUtil.class
 nordside\model\price\PriceTable.class
 nordside\service\PartnerService.class
@@ -35,7 +39,10 @@ nordside\web\json\JsonUtil.class
 nordside\model\AbstractBaseEntity.class
 nordside\web\jwt\JwtProvider.class
 nordside\web\UserController.class
+nordside\repository\CartRepository.class
+nordside\service\CartService.class
 nordside\repository\OrderRepository.class
+nordside\web\jwt\Credentials.class
 nordside\model\price\PriceVariant.class
 nordside\repository\PriceTableRepository.class
 nordside\service\NomenclatureService.class

@@ -1,10 +1,12 @@
 package nordside.web.jwt;
 
 import nordside.LoggedUser;
+import nordside.service.CustomUserDetailService;
 import nordside.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -21,12 +23,14 @@ import static org.springframework.util.StringUtils.hasText;
 public class JwtFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION = "Authorization";
+    private final JwtProvider jwtProvider;
+    private final CustomUserDetailService userService;
 
     @Autowired
-    private JwtProvider jwtProvider;
-
-    @Autowired
-    private UserService userService;
+    public JwtFilter(JwtProvider jwtProvider, UserService userService) {
+        this.jwtProvider = jwtProvider;
+        this.userService = userService;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

@@ -1,11 +1,9 @@
 package nordside.service;
 
-import nordside.LoggedUser;
 import nordside.model.user.User;
 import nordside.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -17,16 +15,28 @@ import static nordside.utils.ValidationUtil.checkNotFound;
 
 @Service("userService")
 //@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class UserService implements UserDetailsService {
+public class UserService extends CustomUserDetailService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private UserRepository userRepository;
+
+//    @Autowired
+//    public UserService(UserRepository userRepository) {
+//        super();
+//        this.userRepository = userRepository;
+//    }
+
+    private CustomPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, CustomPasswordEncoder passwordEncoder) {
+        super(userRepository);
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    //public static PasswordEncoder passwordEncoder() {
+    //    return new BCryptPasswordEncoder();
+    //}
 
     //@CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
@@ -64,16 +74,8 @@ public class UserService implements UserDetailsService {
 //    }
 //
 //    @Override
-    public LoggedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.getByEmail(email.toLowerCase());
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + email + " is not found");
-        }
-        return new LoggedUser(user);
-    }
 
-
-    public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
+    public static User prepareToSave(User user, CustomPasswordEncoder passwordEncoder) {
         String password = user.getPassword();
         user.setPassword(StringUtils.hasText(password) ? passwordEncoder.encode(password) : password);
         user.setEmail(user.getEmail().toLowerCase());

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import nordside.model.AbstractBaseEntity;
 import nordside.model.nomenclature.Nomenclature;
-import nordside.model.order.Order;
+import nordside.model.order.ClientOrder;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -33,8 +33,8 @@ public class PriceTable extends AbstractBaseEntity{
     @JoinTable(name =   "order_merchandise",
                         joinColumns = @JoinColumn(name = "merchandise_id"),
                         inverseJoinColumns = @JoinColumn(name = "order_id"))
-    @JsonIgnore //чтобы не отображалась пара ""orders": null"
-    private Set<Order> orders;
+    @JsonIgnore //чтобы не отображалась пара ""clientOrders": null"
+    private Set<ClientOrder> clientOrders;
 
 
     public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price) {
@@ -88,11 +88,11 @@ public class PriceTable extends AbstractBaseEntity{
         this.price = price;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<ClientOrder> getOrders() {
+        return clientOrders;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setOrders(Set<ClientOrder> clientOrders) {
+        this.clientOrders = clientOrders;
     }
 }
