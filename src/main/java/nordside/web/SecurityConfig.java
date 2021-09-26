@@ -31,10 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                //.antMatchers("rest/user/registration").permitAll()
-                .antMatchers("/rest/admin/*").hasRole("ADMIN")
+                .antMatchers("/rest/user/registration","/rest/user/auth").permitAll()
+                .antMatchers("/rest/admin/**").hasRole("ADMIN")
                 //.antMatchers("/rest/user/auth").permitAll()
-                .antMatchers("/rest/user/*").hasRole("USER")
+                .antMatchers("/rest/user/**").hasRole("USER")
                 .and()
                 .addFilterBefore(jwtFilter, AnonymousAuthenticationFilter.class);
 
