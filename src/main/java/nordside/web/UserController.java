@@ -97,13 +97,14 @@ public class UserController {
 
     @PostMapping(value = "auth",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseToken auth(@RequestBody Credentials credentials) {
-//        Logger logger = LoggerFactory.getLogger("auth");
-//        logger.info("auth");
+        Logger logger = LoggerFactory.getLogger("auth");
+        logger.info("auth");
         String email = credentials.getEmail();
         String token = jwtProvider.generateToken(email);
         return new ResponseToken(token);
         //return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
     @GetMapping(value = "auth/email", produces = MediaType.APPLICATION_JSON_VALUE)
     public User authByEmail(@RequestParam String email) {

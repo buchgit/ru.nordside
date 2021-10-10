@@ -29,16 +29,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+//                .and()
+//                .requiresChannel()
+////                .anyRequest().requiresSecure()
+//                .antMatchers("/rest/user/**").requiresSecure()
+
                 .and()
                 .authorizeRequests()
-                .antMatchers("/rest/user/registration","/rest/user/auth").permitAll()
-                .antMatchers("/rest/admin/**").hasRole("ADMIN")
+                //.antMatchers("/rest/user/registration","/rest/user/auth","/rest/user/category/all","/rest/user/partner/all").permitAll()
+                .antMatchers("/rest/user/auth").anonymous()
                 //.antMatchers("/rest/user/auth").permitAll()
-                .antMatchers("/rest/user/**").hasRole("USER")
+                .antMatchers("/rest/admin/**").hasRole("ADMIN")
+                .antMatchers("/rest/user/cart").hasRole("USER")
+                .antMatchers("/rest/user/**").permitAll()
+
                 .and()
                 .addFilterBefore(jwtFilter, AnonymousAuthenticationFilter.class);
 
+                //https протокол включить
+//        http.requiresChannel()
+//                .anyRequest().requiresInsecure();
     }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/anonymous*")
+//                .anonymous();
+//
+//        http.authorizeRequests()
+//                .antMatchers("/login*")
+//                .permitAll();
+//
+//        http.authorizeRequests()
+//                .anyRequest()
+//                .authenticated();
+
+//http.requiresChannel()
+//        .antMatchers("/login*").requiresSecure();
+
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
