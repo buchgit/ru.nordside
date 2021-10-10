@@ -2,8 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Nordside</title>
-    <h2>Hello World!</h2>
+    <title>***</title>
+    <h2>*********</h2>
 </head>
 <body>
 
