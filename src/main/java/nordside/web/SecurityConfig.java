@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/user/auth").anonymous()
                 //.antMatchers("/rest/user/auth").permitAll()
                 .antMatchers("/rest/admin/**").hasRole("ADMIN")
-                .antMatchers("/rest/user/cart").hasRole("USER")
+                .antMatchers("/rest/user/cart/*","/rest/user/personal/*").hasRole("USER")
                 .antMatchers("/rest/user/**").permitAll()
 
                 .and()

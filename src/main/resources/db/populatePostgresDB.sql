@@ -19,7 +19,7 @@ values ('default',''),
 -- 100002,100003
 INSERT INTO users (name, email, password,price_variant)
 VALUES ('User', 'user@gmail.com', '{noop}user',(SELECT ID FROM price_variant WHERE NAME = 'default')),
-       ('Admin', 'admin@gmail.com', '{noop}admin',200000);
+       ('Admin', 'admin@gmail.com', '{noop}admin',(SELECT ID FROM price_variant WHERE NAME = 'default2'));
 --
 INSERT INTO user_roles (role, user_id)
 VALUES ('USER', (SELECT ID FROM USERS WHERE NAME = 'User')),
@@ -96,28 +96,40 @@ values ((select id from price_variant where name='default'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),
         'м2',
         1.14);
+-- 100021
+insert into price_table(price_variant,nomenclature,unit,price)
+values ((select id from price_variant where name='default2'),
+        (select id from nomenclature  where name='панель 05*250*2700 белый матовый'),
+        'шт',
+        2.22);
+-- 100022
+insert into price_table(price_variant,nomenclature,unit,price)
+values ((select id from price_variant where name='default2'),
+        (select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),
+        'м2',
+        2.24);
 
---100021,100022
+--100023,100024
 insert into orders(number_for1c,client,total_amount,total_volume,total_weight,status)
 values ('Б0000000001',(SELECT ID FROM USERS WHERE NAME = 'User'),1200.54,0.333,150.14,'NEW'),
        ('Б0000000003',(SELECT ID FROM USERS WHERE NAME = 'User'),1200.55,0.336,150.17,'IN_PROGRESS');
 
---100023,100024
+--100025,100026
 insert into order_merchandise(order_id, merchandise_id)
 values ((select id from orders where orders.number_for1c = 'Б0000000001'),
-        (select id from price_table where price_table.nomenclature=(select id from nomenclature where name = 'панель 05*250*2700 белый матовый' ))),
+        100019),
        ((select id from orders where orders.number_for1c = 'Б0000000003'),
-        (select id from price_table where price_table.nomenclature=(select id from nomenclature where name = 'панель 05*250*2700 белый матовый 319' )));
+        100020);
 
--- 100025,10026
+-- 100027,10028
 insert into cart_items(user_id,nomenclature_id,price,count,create_date)
 values ((SELECT ID FROM USERS WHERE NAME = 'User'),(select id from nomenclature  where name='панель 05*250*2700 белый матовый'),100.00,1.00,now()),
        ((SELECT ID FROM USERS WHERE NAME = 'User'),(select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),105.00,2.00,now());
 
 --
 insert into nomenclature_cart_item(nomenclature_id,cart_item_id)
-values ((select id from nomenclature  where name='панель 05*250*2700 белый матовый'),100025),
-       ((select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),100026);
+values ((select id from nomenclature  where name='панель 05*250*2700 белый матовый'),100027),
+       ((select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),100028);
 
 -- last
 insert into partners(name,site,address,telephone)

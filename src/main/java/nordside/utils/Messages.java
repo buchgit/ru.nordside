@@ -12,4 +12,5 @@ public class Messages {
     public static final String ORDER_NOT_FOUND = "order not found";
     public static final String CART_IS_NULL = "cart is null";
     public static final String CART_NOT_FOUND = "cart not found";
+    public static final String COLLECTION_ID_IS_EMPTY = "collection id is empty";
 }

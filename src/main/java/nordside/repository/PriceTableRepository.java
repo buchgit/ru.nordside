@@ -16,5 +16,6 @@ public interface PriceTableRepository extends JpaRepository<PriceTable,Integer> 
     @Query("select pt from PriceTable pt where pt.priceVariant=(select u.priceVariant from User u where u.id=:userId)")
     public List<PriceTable> getFullPriceByUser(@Param("userId") Integer userId);
 
-
+    @Query("select pt from PriceTable pt where pt.priceVariant=(select u.priceVariant from User u where u.id=:userId) and pt.nomenclature.nomenclatureCollection.id=:collectionId")
+    List<PriceTable> getPriceByCollectionIdByUser(@Param("userId") Integer id,@Param("collectionId")  Integer collectionId);
 }

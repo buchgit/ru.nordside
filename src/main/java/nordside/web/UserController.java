@@ -111,10 +111,18 @@ public class UserController {
         return userService.getByEmail(email);
     }
 
-    //prices
+    //prices общий
     @GetMapping(value = "nomenclature/all")
     public List<PriceTable> getFullPriceByUser(@RequestParam String email){
         return priceTableService.getFullPriceByUser(userService.getByEmail(email));
+    }
+
+    //prices по токену
+    @GetMapping(value = "personal/nomenclature/collection/{id}")
+    public List<PriceTable> getPersonalUserPrice(@PathVariable String id, @AuthenticationPrincipal LoggedUser loggedUser){
+        String email = loggedUser.getUsername();
+        Integer collectionId = Integer.parseInt(id);
+        return priceTableService.getPriceByCollectionIdByUser(userService.getByEmail(email),collectionId);
     }
 
     //clientOrders
