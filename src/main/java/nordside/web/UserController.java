@@ -14,6 +14,7 @@ import nordside.service.*;
 import nordside.web.jwt.Credentials;
 import nordside.web.jwt.JwtProvider;
 import nordside.web.jwt.ResponseToken;
+import nordside.web.jwt.ResponseTokenPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,17 +95,27 @@ public class UserController {
 //        return "OK";
 //    }
 
-
+    //by login and password in the request body
     @PostMapping(value = "auth",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseToken auth(@RequestBody Credentials credentials) {
+    public ResponseTokenPair auth(@RequestBody Credentials credentials) {
         Logger logger = LoggerFactory.getLogger("auth");
         logger.info("auth");
         String email = credentials.getEmail();
-        String token = jwtProvider.generateToken(email);
-        return new ResponseToken(token);
-        //return new ResponseEntity<>(HttpStatus.CREATED);
+        String accessToken = jwtProvider.generateToken(email, false);
+        String refreshToken = jwtProvider.generateToken(email, true);
+        return new ResponseTokenPair(accessToken, refreshToken);
     }
 
+    //by refresh token
+    @PostMapping(value = "refresh")
+    public ResponseTokenPair auth(@AuthenticationPrincipal LoggedUser loggedUser) {
+        Logger logger = LoggerFactory.getLogger("refresh");
+        logger.info("refresh");
+        String email = loggedUser.getPassword();
+        String accessToken = jwtProvider.generateToken(email, false);
+        String refreshToken = jwtProvider.generateToken(email, true);
+        return new ResponseTokenPair(accessToken, refreshToken);
+    }
 
     @GetMapping(value = "auth/email", produces = MediaType.APPLICATION_JSON_VALUE)
     public User authByEmail(@RequestParam String email) {

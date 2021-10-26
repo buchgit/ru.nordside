@@ -40,8 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/rest/user/registration","/rest/user/auth","/rest/user/category/all","/rest/user/partner/all").permitAll()
                 //.antMatchers("/rest/user/auth").anonymous()
                 .antMatchers("/rest/user/auth").permitAll()
+                .antMatchers("/rest/user/refresh").authenticated() //is taken token
                 .antMatchers("/rest/admin/**").hasRole("ADMIN")
                 .antMatchers("/rest/user/cart/*","/rest/user/personal/*").hasRole("USER")
+
                 .antMatchers("/rest/user/**").permitAll()
 
                 .and()

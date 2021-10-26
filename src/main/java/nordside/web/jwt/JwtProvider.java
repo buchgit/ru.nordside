@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -24,8 +26,20 @@ public class JwtProvider {
     @Value("$(jwt.secret)")
     private String jwtSecret;
 
-    public String generateToken(String login) {
-        Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    //@Value("#(jwt.access.time)") //TODO: from .properties
+    private long accessTime = 1;
+
+    //@Value("#(jwt.refresh.time)") //TODO: from .properties
+    private long refreshTime = 15;
+
+    public String generateToken(String login, boolean refresh) {
+        long expiryTime = 0;
+        if (refresh){
+            expiryTime = refreshTime;
+        }else {
+            expiryTime = accessTime;
+        }
+        Date date = Date.from(LocalDate.now().plusDays(expiryTime).atStartOfDay(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
                 .setSubject(login)
                 .setExpiration(date)

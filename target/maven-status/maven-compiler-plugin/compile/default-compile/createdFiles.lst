@@ -2,6 +2,7 @@ nordside\exceptions\NotFoundException.class
 nordside\model\nomenclature\Nomenclature.class
 nordside\repository\NomenclatureCategoryRepository.class
 nordside\model\order\ClientOrder.class
+nordside\web\jwt\ResponseTokenPair.class
 nordside\model\cart\CartItem.class
 nordside\service\PriceTableService.class
 nordside\model\AbstractNamedEntity.class
