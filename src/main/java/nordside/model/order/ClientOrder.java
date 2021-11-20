@@ -6,6 +6,7 @@ import nordside.model.price.PriceTable;
 import nordside.model.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class ClientOrder extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name =   "order_merchandise",
                         joinColumns = @JoinColumn(name="order_id"),
                         inverseJoinColumns = @JoinColumn(name = "merchandise_id"))

@@ -2,6 +2,7 @@ C:\programming\nordside\src\main\java\nordside\web\jwt\ResponseTokenPair.java
 C:\programming\nordside\src\main\java\nordside\model\price\PriceTable.java
 C:\programming\nordside\src\main\java\nordside\repository\PriceTableRepository.java
 C:\programming\nordside\src\main\java\nordside\service\PriceTableService.java
+C:\programming\nordside\src\main\java\nordside\model\order\ClientOrderLine.java
 C:\programming\nordside\src\main\java\nordside\web\jwt\ResponseToken.java
 C:\programming\nordside\src\main\java\nordside\model\nomenclature\NomenclatureCategory.java
 C:\programming\nordside\src\main\java\nordside\repository\NomenclatureCategoryRepository.java
@@ -27,6 +28,7 @@ C:\programming\nordside\src\main\java\nordside\service\PartnerService.java
 C:\programming\nordside\src\main\java\nordside\service\NomenclatureCategoryService.java
 C:\programming\nordside\src\main\java\nordside\service\PriceVariantService.java
 C:\programming\nordside\src\main\java\nordside\web\jwt\JwtFilter.java
+C:\programming\nordside\src\main\java\nordside\model\order\ClientOrderTO.java
 C:\programming\nordside\src\main\java\nordside\repository\OrderRepository.java
 C:\programming\nordside\src\main\java\nordside\web\json\JsonUtil.java
 C:\programming\nordside\src\main\java\nordside\repository\NomenclatureCollectionRepository.java

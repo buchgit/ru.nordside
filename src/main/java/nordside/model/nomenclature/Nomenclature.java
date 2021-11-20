@@ -75,7 +75,7 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String unit;
 
-    @OneToMany(mappedBy = "nomenclature",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "nomenclature",cascade = CascadeType.ALL)
     //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
     @JsonIgnore //убрал "priceTable": null
     private Set<PriceTable> priceTable;

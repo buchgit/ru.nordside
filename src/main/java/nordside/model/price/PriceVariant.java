@@ -11,11 +11,11 @@ import java.util.Set;
 @Table(name = "price_variant")
 public class PriceVariant extends AbstractNamedEntity {
 
-    @OneToMany(mappedBy = "priceVariant",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "priceVariant",cascade = CascadeType.ALL)
     //@JsonManagedReference(value = "user")
     private Set<User> userList;
 
-    @OneToMany(mappedBy = "priceVariant",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "priceVariant",cascade = CascadeType.ALL)
     @JsonManagedReference(value = "price_variant")
     private Set<PriceTable> priceTable;
 

@@ -1,9 +1,16 @@
 package nordside.service;
 
+import nordside.LoggedUser;
 import nordside.exceptions.NotFoundException;
+import nordside.model.nomenclature.Nomenclature;
 import nordside.model.order.ClientOrder;
+import nordside.model.order.ClientOrderLine;
+import nordside.model.order.ClientOrderTO;
 import nordside.model.order.OrderStatus;
+import nordside.model.price.PriceTable;
+import nordside.model.price.PriceVariant;
 import nordside.model.user.User;
+import nordside.repository.NomenclatureRepository;
 import nordside.repository.OrderRepository;
 import nordside.repository.UserRepository;
 import nordside.utils.Messages;
@@ -15,16 +22,20 @@ import org.springframework.util.Assert;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Service("orderService")
 public class OrderService {
     private OrderRepository orderRepository;
     private UserRepository userRepository;
+    private NomenclatureRepository nomenclatureRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, NomenclatureRepository nomenclatureRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.nomenclatureRepository = nomenclatureRepository;
     }
 
 
@@ -49,14 +60,14 @@ public class OrderService {
 
     @Transactional
     @Modifying
-    public ClientOrder create(ClientOrder clientOrder) {
-        Assert.notNull(clientOrder,Messages.ORDER_IS_NULL);
-        User user = (User)userRepository.findByEmail(clientOrder.getClient().getEmail()).orElse(null);
+    public ClientOrder create(ClientOrderTO clientOrderTO, LoggedUser loggedUser) {
+        Assert.notNull(clientOrderTO,Messages.ORDER_IS_NULL);
+        String email = loggedUser.getUsername();
+        User user = (User)userRepository.findByEmail(email).orElse(null);
         if (user!=null){
-            clientOrder.setClient(user);
+            return orderRepository.save(convertToClientOrder(clientOrderTO, user));
         }
-
-        return orderRepository.save(clientOrder);
+        return null;
     }
 
     @Transactional
@@ -76,5 +87,37 @@ public class OrderService {
             throw new NotFoundException(Messages.ORDER_NOT_FOUND);
         }
 
+    }
+
+    private ClientOrder convertToClientOrder(ClientOrderTO clientOrderTO, User user){
+
+        List<ClientOrderLine> clientOrderLineList = clientOrderTO.getOrderLinesTable();
+
+        Set<PriceTable> priceTableSet = new TreeSet<>();
+        for (ClientOrderLine clientOrderLine: clientOrderLineList){
+
+            Nomenclature nomenclature = nomenclatureRepository.findByName(clientOrderLine.getTitle()).orElse(null);
+            Assert.notNull(nomenclature,Messages.NOMENCLATURE_NOT_FOUND);
+
+            PriceTable priceTable = new PriceTable(
+                    user.getPriceVariant(),
+                    nomenclature,
+                    clientOrderLine.getUnit(),
+                    clientOrderLine.getPrice()
+            );
+            priceTableSet.add(priceTable);
+        }
+
+        ClientOrder clientOrder = new ClientOrder(clientOrderTO.getDate(),
+                "",
+                user,
+                clientOrderTO.getTotalAmount(),
+                clientOrderTO.getTotalVolume(),
+                clientOrderTO.getTotalWeight(),
+                OrderStatus.NEW,
+                priceTableSet);
+
+
+        return clientOrder;
     }
 }

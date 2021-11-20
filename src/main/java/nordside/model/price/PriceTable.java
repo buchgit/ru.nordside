@@ -5,20 +5,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import nordside.model.AbstractBaseEntity;
 import nordside.model.nomenclature.Nomenclature;
 import nordside.model.order.ClientOrder;
+import nordside.model.order.ClientOrderLine;
+import nordside.model.user.User;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "price_table")
-public class PriceTable extends AbstractBaseEntity{
+public class PriceTable extends AbstractBaseEntity implements Comparable{
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonBackReference(value = "price_variant")
     @JoinColumn(name = "price_variant")
     private PriceVariant priceVariant;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.PERSIST)
     //TODO @JsonBackReference(value = "nomenclature") //закомм., потому что не возвращ.номенклатура в запросе
     @JoinColumn(name = "nomenclature")
     private Nomenclature nomenclature;
@@ -29,7 +33,7 @@ public class PriceTable extends AbstractBaseEntity{
     @Column
     private double price;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name =   "order_merchandise",
                         joinColumns = @JoinColumn(name = "merchandise_id"),
                         inverseJoinColumns = @JoinColumn(name = "order_id"))
@@ -94,5 +98,11 @@ public class PriceTable extends AbstractBaseEntity{
 
     public void setOrders(Set<ClientOrder> clientOrders) {
         this.clientOrders = clientOrders;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PriceTable priceTable = (PriceTable) o;
+        return nomenclature.getName().length() - priceTable.nomenclature.getName().length();
     }
 }

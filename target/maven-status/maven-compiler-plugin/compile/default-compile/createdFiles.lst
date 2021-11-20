@@ -9,6 +9,7 @@ nordside\model\AbstractNamedEntity.class
 nordside\web\TestController.class
 nordside\web\json\JacksonObjectMapper.class
 nordside\LoggedUser.class
+nordside\model\order\ClientOrderLine.class
 nordside\service\CustomUserDetailService.class
 nordside\model\user\Role.class
 nordside\web\jwt\JwtFilter.class
@@ -23,6 +24,7 @@ nordside\service\OrderService.class
 nordside\service\PriceVariantService.class
 nordside\repository\PriceVariantRepository.class
 nordside\web\RootController.class
+nordside\model\order\ClientOrderTO.class
 nordside\model\Partner.class
 nordside\repository\PartnerRepository.class
 nordside\web\jwt\ResponseToken.class

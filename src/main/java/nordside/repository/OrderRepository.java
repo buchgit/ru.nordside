@@ -23,4 +23,5 @@ public interface OrderRepository extends JpaRepository<ClientOrder,Integer> {
 
     @Query("select o from ClientOrder o where o.number_For1c=:number_for1c")
     Optional<ClientOrder> getOrderByNumberFor1c(@Param("number_for1c") String number_for1c);
+
 }

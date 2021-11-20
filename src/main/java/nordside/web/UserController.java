@@ -7,13 +7,13 @@ import nordside.model.nomenclature.Nomenclature;
 import nordside.model.nomenclature.NomenclatureCategory;
 import nordside.model.nomenclature.NomenclatureCollection;
 import nordside.model.order.ClientOrder;
+import nordside.model.order.ClientOrderTO;
 import nordside.model.price.PriceTable;
 import nordside.model.user.Role;
 import nordside.model.user.User;
 import nordside.service.*;
 import nordside.web.jwt.Credentials;
 import nordside.web.jwt.JwtProvider;
-import nordside.web.jwt.ResponseToken;
 import nordside.web.jwt.ResponseTokenPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
@@ -153,11 +151,12 @@ public class UserController {
     }
 
     @PostMapping(value = "order/create")
-    public ResponseEntity<String> createOrder(@Valid @RequestBody ClientOrder clientOrder, BindingResult result){
+    public ResponseEntity<String> createOrder(@Valid @RequestBody ClientOrderTO clientOrderTO, BindingResult result, @AuthenticationPrincipal LoggedUser loggedUser){
         if (result.hasErrors()){
             return getStringResponseEntity(result, logger);
         }else {
-            ClientOrder created = orderService.create(clientOrder);
+
+            ClientOrder created = orderService.create(clientOrderTO, loggedUser);
             logger.info("created order number "+ created.getNumber_For1c());
             return new ResponseEntity<> (HttpStatus.CREATED);
         }

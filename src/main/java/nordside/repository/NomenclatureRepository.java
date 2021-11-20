@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -16,4 +17,5 @@ public interface NomenclatureRepository extends JpaRepository<Nomenclature,Integ
     @Query("select n from Nomenclature n where n.nomenclatureCollection.id =:id")
     List<Nomenclature> getByCollection(@Param("id") Integer id);
 
+    Optional<Nomenclature> findByName(String title);
 }
