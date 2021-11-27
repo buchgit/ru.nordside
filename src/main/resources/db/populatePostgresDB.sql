@@ -85,29 +85,39 @@ values ('панель 05*250*2700 белый матовый', 'панель 05*2
     2700.00,250.00,0.00,0.00,0.00,5.00,'белый',0.0034,4.030,5.005,10);
 
 -- 100019
-insert into price_table(price_variant,nomenclature,unit,price)
+insert into price_table(price_variant,nomenclature,unit,price,count,summa)
 values ((select id from price_variant where name='default'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый'),
         'шт',
-        1.12);
+        1.12,
+        1.00,
+        1.12
+        );
 -- 100020
-insert into price_table(price_variant,nomenclature,unit,price)
+insert into price_table(price_variant,nomenclature,unit,price,count,summa)
 values ((select id from price_variant where name='default'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),
         'м2',
-        1.14);
+        1.14,
+        2.00,
+        2.28);
 -- 100021
-insert into price_table(price_variant,nomenclature,unit,price)
+insert into price_table(price_variant,nomenclature,unit,price,count,summa)
 values ((select id from price_variant where name='default2'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый'),
         'шт',
-        2.22);
+        2.22,
+        2.00,
+        4.44);
 -- 100022
-insert into price_table(price_variant,nomenclature,unit,price)
+insert into price_table(price_variant,nomenclature,unit,price,count,summa)
 values ((select id from price_variant where name='default2'),
         (select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),
         'м2',
-        2.24);
+        2.24,
+        1.00,
+        2.24
+        );
 
 --100023,100024
 insert into orders(number_for1c,client,total_amount,total_volume,total_weight,status)

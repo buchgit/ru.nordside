@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Service("orderService")
 public class OrderService {
@@ -43,10 +40,16 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public List<ClientOrder> getOrdersByEmail(String email) {
+    public List<ClientOrderTO> getOrdersByEmail(String email) {
         Assert.notNull(email,Messages.EMAIL_IS_NULL);
         Assert.notEmpty(Collections.singleton(email),Messages.EMAIL_IS_EMPTY);
-        return orderRepository.findByEmail(email.toLowerCase());
+        List<ClientOrder> clientOrderList = orderRepository.findByEmail(email.toLowerCase());
+        List<ClientOrderTO> clientOrderTOList = new ArrayList<>();
+        for (ClientOrder clientOrder:clientOrderList){
+            ClientOrderTO clientOrderTO = convertToClientOrderTO(clientOrder);
+            clientOrderTOList.add(clientOrderTO);
+        }
+        return clientOrderTOList;
     }
 
     public List<ClientOrder> getOrdersByEmailStatus(String email, String status) {
@@ -103,7 +106,9 @@ public class OrderService {
                     user.getPriceVariant(),
                     nomenclature,
                     clientOrderLine.getUnit(),
-                    clientOrderLine.getPrice()
+                    clientOrderLine.getPrice(),
+                    clientOrderLine.getCount(),
+                    clientOrderLine.getSumma()
             );
             priceTableSet.add(priceTable);
         }
@@ -120,4 +125,40 @@ public class OrderService {
 
         return clientOrder;
     }
+
+    private ClientOrderTO convertToClientOrderTO(ClientOrder clientOrder){
+
+        Set<PriceTable> priceTableSet = clientOrder.getPriceTables();
+
+        List<ClientOrderLine> orderLinesTable = new ArrayList<>();
+        for (PriceTable priceTable: priceTableSet){
+            ClientOrderLine clientOrderLine = new ClientOrderLine(
+                    clientOrder.getNumber_For1c(),
+                    priceTable.getNomenclature().getName(),
+                    priceTable.getUnit(),
+                    priceTable.getCount(),
+                    priceTable.getSumma()
+            );
+            orderLinesTable.add(clientOrderLine);
+        }
+
+        ClientOrderTO clientOrderTO = new ClientOrderTO(
+                clientOrder.getId().toString(),
+                clientOrder.getDate(),
+                clientOrder.getNumber_For1c(),
+                clientOrder.getTotalVolume(),
+                orderLinesTable
+            );
+
+        return clientOrderTO;
+    }
 }
+/*
+//code in 1c
+    private String code;
+    //nomenclature title
+    private String title;
+    private String unit;
+    private double count;
+    private double summa;
+ */

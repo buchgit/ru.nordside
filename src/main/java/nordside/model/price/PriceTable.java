@@ -33,6 +33,28 @@ public class PriceTable extends AbstractBaseEntity implements Comparable{
     @Column
     private double price;
 
+    @Column
+    private double count;
+
+    public double getCount() {
+        return count;
+    }
+
+    public void setCount(double count) {
+        this.count = count;
+    }
+
+    public double getSumma() {
+        return summa;
+    }
+
+    public void setSumma(double summa) {
+        this.summa = summa;
+    }
+
+    @Column
+    private double summa;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name =   "order_merchandise",
                         joinColumns = @JoinColumn(name = "merchandise_id"),
@@ -41,19 +63,23 @@ public class PriceTable extends AbstractBaseEntity implements Comparable{
     private Set<ClientOrder> clientOrders;
 
 
-    public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price) {
+    public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price, double count, double summa) {
         this.priceVariant = priceVariant;
         this.nomenclature = nomenclature;
         this.unit = unit;
         this.price = price;
+        this.count = count;
+        this.summa = summa;
     }
 
-    public PriceTable(Integer id, PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price) {
+    public PriceTable(Integer id, PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price, double count, double summa) {
         super(id);
         this.priceVariant = priceVariant;
         this.nomenclature = nomenclature;
         this.unit = unit;
         this.price = price;
+        this.count = count;
+        this.summa = summa;
     }
 
     public PriceTable() {

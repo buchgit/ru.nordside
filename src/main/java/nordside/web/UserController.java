@@ -140,8 +140,9 @@ public class UserController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping(value = "order/email")
-    public List<ClientOrder> getOrdersByEmail(@RequestParam String email){
+    @GetMapping(value = "order/personal")
+    public List<ClientOrderTO> getOrdersByEmail(@AuthenticationPrincipal LoggedUser loggedUser){
+        String email = loggedUser.getUsername();
         return orderService.getOrdersByEmail(email);
     }
 

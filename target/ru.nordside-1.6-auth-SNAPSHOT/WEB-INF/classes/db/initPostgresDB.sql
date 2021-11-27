@@ -98,6 +98,8 @@ create table price_table(
     price_variant integer not null ,
     unit varchar not null ,
     price double precision,
+    count double precision,
+    summa double precision,
     constraint nomenclature_price_variant_idx unique (nomenclature, price_variant),
     foreign key (nomenclature)references nomenclature(id),
     foreign key (price_variant) references price_variant (id)
