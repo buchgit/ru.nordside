@@ -47,5 +47,6 @@ nordside\service\CartService.class
 nordside\repository\OrderRepository.class
 nordside\web\jwt\Credentials.class
 nordside\model\price\PriceVariant.class
+nordside\model\order\ClientOrderLineTO.class
 nordside\repository\PriceTableRepository.class
 nordside\service\NomenclatureService.class

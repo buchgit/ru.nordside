@@ -3,6 +3,7 @@ package nordside.model.nomenclature;
 import com.fasterxml.jackson.annotation.*;
 import nordside.model.AbstractNamedEntity;
 import nordside.model.cart.CartItem;
+import nordside.model.order.ClientOrderLine;
 import nordside.model.price.PriceTable;
 
 import javax.persistence.*;
@@ -13,8 +14,8 @@ import java.util.List;
 import java.util.Set;
 
 //@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
+//generator = ObjectIdGenerators.PropertyGenerator.class,
+//property = "id")
 @Entity
 @Table(name = "nomenclature")
 public class Nomenclature extends AbstractNamedEntity {
@@ -75,10 +76,14 @@ public class Nomenclature extends AbstractNamedEntity {
     @Column
     private String unit;
 
+//    @OneToMany(mappedBy = "nomenclature",cascade = CascadeType.ALL)
+//    //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
+//    @JsonIgnore //убрал "priceTable": null
+//    private Set<PriceTable> priceTable;
+
     @OneToMany(mappedBy = "nomenclature",cascade = CascadeType.ALL)
-    //TODO: @JsonManagedReference(value = "nomenclature") заком., потому что не возращается номенлатура в запросе
-    @JsonIgnore //убрал "priceTable": null
-    private Set<PriceTable> priceTable;
+    @JsonIgnore //убрал "clientOrderLines": null
+    private Set<ClientOrderLine> clientOrderLines;
 
     @ManyToMany
     @JoinTable(name = "nomenclature_cart_item",joinColumns = @JoinColumn(name = "nomenclature_id"),
@@ -309,11 +314,11 @@ public class Nomenclature extends AbstractNamedEntity {
         this.unit = unit;
     }
 
-    public Set<PriceTable> getPriceTable() {
-        return priceTable;
+    public Set<ClientOrderLine> getClientOrderLines() {
+        return clientOrderLines;
     }
 
-    public void setPriceTable(Set<PriceTable> priceTable) {
-        this.priceTable = priceTable;
+    public void setClientOrderLines(Set<ClientOrderLine> clientOrderLines) {
+        this.clientOrderLines = clientOrderLines;
     }
 }

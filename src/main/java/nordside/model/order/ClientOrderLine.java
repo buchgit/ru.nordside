@@ -1,17 +1,39 @@
 package nordside.model.order;
 
-public class ClientOrderLine {
-    //code in 1c
-    private String code;
-    //nomenclature title
-    private String title;
+import nordside.model.AbstractBaseEntity;
+import nordside.model.nomenclature.Nomenclature;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "client_order_line")
+public class ClientOrderLine extends AbstractBaseEntity {
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private ClientOrder clientOrder;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Nomenclature nomenclature;
+
+    @Column
     private String unit;
+    @Column
     private double count;
+    @Column
     private double summa;
 
-    public ClientOrderLine(String code, String title, String unit, Double count, Double summa) {
-        this.code = code;
-        this.title = title;
+    /*
+    id           integer primary key default nextval('global_seq'),
+    order_id     integer not null,
+    nomenclature_id integer not null,
+    unit         varchar not null,
+    count        double precision,
+    summa        double precision,
+     */
+
+    public ClientOrderLine(ClientOrder clientOrder, Nomenclature nomenclature, String unit, double count, double summa) {
+        this.clientOrder = clientOrder;
+        this.nomenclature = nomenclature;
         this.unit = unit;
         this.count = count;
         this.summa = summa;
@@ -20,20 +42,20 @@ public class ClientOrderLine {
     public ClientOrderLine() {
     }
 
-    public String getCode() {
-        return code;
+    public ClientOrder getClientOrder() {
+        return clientOrder;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setClientOrder(ClientOrder clientOrder) {
+        this.clientOrder = clientOrder;
     }
 
-    public String getTitle() {
-        return title;
+    public Nomenclature getNomenclature() {
+        return nomenclature;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNomenclature(Nomenclature nomenclature) {
+        this.nomenclature = nomenclature;
     }
 
     public String getUnit() {
@@ -58,9 +80,5 @@ public class ClientOrderLine {
 
     public void setSumma(double summa) {
         this.summa = summa;
-    }
-
-    public double getPrice(){
-        return summa/count;  //todo проверить деление двух double
     }
 }

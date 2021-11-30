@@ -2,6 +2,7 @@ delete from partners;
 delete from order_merchandise;
 delete from nomenclature_cart_item;
 delete from cart_items;
+delete from client_order_line;
 delete from orders;
 DELETE FROM user_roles;
 DELETE FROM users;
@@ -124,22 +125,30 @@ insert into orders(number_for1c,client,total_amount,total_volume,total_weight,st
 values ('Б0000000001',(SELECT ID FROM USERS WHERE NAME = 'User'),1200.54,0.333,150.14,'NEW'),
        ('Б0000000003',(SELECT ID FROM USERS WHERE NAME = 'User'),1200.55,0.336,150.17,'IN_PROGRESS');
 
---100025,100026
+-- 100025
+insert into client_order_line(order_id, nomenclature_id, unit, count, summa)
+values ((SELECT ID FROM orders WHERE number_for1c = 'Б0000000001'),
+        (SELECT ID FROM nomenclature WHERE name = 'панель 05*250*2700 белый матовый'),
+        'шт',
+        1.00,
+        112.54);
+
+--100026,100027
 insert into order_merchandise(order_id, merchandise_id)
 values ((select id from orders where orders.number_for1c = 'Б0000000001'),
         100019),
        ((select id from orders where orders.number_for1c = 'Б0000000003'),
         100020);
 
--- 100027,10028
+-- 100028,10029
 insert into cart_items(user_id,nomenclature_id,price,count,create_date)
 values ((SELECT ID FROM USERS WHERE NAME = 'User'),(select id from nomenclature  where name='панель 05*250*2700 белый матовый'),100.00,1.00,now()),
        ((SELECT ID FROM USERS WHERE NAME = 'User'),(select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),105.00,2.00,now());
 
 --
 insert into nomenclature_cart_item(nomenclature_id,cart_item_id)
-values ((select id from nomenclature  where name='панель 05*250*2700 белый матовый'),100027),
-       ((select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),100028);
+values ((select id from nomenclature  where name='панель 05*250*2700 белый матовый'),100028),
+       ((select id from nomenclature  where name='панель 05*250*2700 белый матовый 319'),100029);
 
 -- last
 insert into partners(name,site,address,telephone)

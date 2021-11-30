@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import nordside.model.AbstractBaseEntity;
 import nordside.model.nomenclature.Nomenclature;
 import nordside.model.order.ClientOrder;
-import nordside.model.order.ClientOrderLine;
-import nordside.model.user.User;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -55,12 +53,14 @@ public class PriceTable extends AbstractBaseEntity implements Comparable{
     @Column
     private double summa;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name =   "order_merchandise",
-                        joinColumns = @JoinColumn(name = "merchandise_id"),
-                        inverseJoinColumns = @JoinColumn(name = "order_id"))
-    @JsonIgnore //чтобы не отображалась пара ""clientOrders": null"
-    private Set<ClientOrder> clientOrders;
+
+
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name =   "order_merchandise",
+//                        joinColumns = @JoinColumn(name = "merchandise_id"),
+//                        inverseJoinColumns = @JoinColumn(name = "order_id"))
+//    @JsonIgnore //чтобы не отображалась пара ""clientOrders": null"
+//    private Set<ClientOrder> clientOrders;
 
 
     public PriceTable(PriceVariant priceVariant, Nomenclature nomenclature, String unit, double price, double count, double summa) {
@@ -118,13 +118,13 @@ public class PriceTable extends AbstractBaseEntity implements Comparable{
         this.price = price;
     }
 
-    public Set<ClientOrder> getOrders() {
-        return clientOrders;
-    }
-
-    public void setOrders(Set<ClientOrder> clientOrders) {
-        this.clientOrders = clientOrders;
-    }
+//    public Set<ClientOrder> getOrders() {
+//        return clientOrders;
+//    }
+//
+//    public void setOrders(Set<ClientOrder> clientOrders) {
+//        this.clientOrders = clientOrders;
+//    }
 
     @Override
     public int compareTo(Object o) {

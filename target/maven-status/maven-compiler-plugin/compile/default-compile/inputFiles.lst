@@ -11,6 +11,7 @@ C:\programming\nordside\src\main\java\nordside\model\AbstractNamedEntity.java
 C:\programming\nordside\src\main\java\nordside\model\cart\CartItem.java
 C:\programming\nordside\src\main\java\nordside\service\CustomPasswordEncoder.java
 C:\programming\nordside\src\main\java\nordside\web\RootController.java
+C:\programming\nordside\src\main\java\nordside\model\order\ClientOrderLineTO.java
 C:\programming\nordside\src\main\java\nordside\web\UserController.java
 C:\programming\nordside\src\main\java\nordside\service\NomenclatureService.java
 C:\programming\nordside\src\main\java\nordside\repository\PriceVariantRepository.java

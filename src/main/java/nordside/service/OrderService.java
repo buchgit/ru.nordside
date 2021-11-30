@@ -3,12 +3,8 @@ package nordside.service;
 import nordside.LoggedUser;
 import nordside.exceptions.NotFoundException;
 import nordside.model.nomenclature.Nomenclature;
-import nordside.model.order.ClientOrder;
-import nordside.model.order.ClientOrderLine;
-import nordside.model.order.ClientOrderTO;
-import nordside.model.order.OrderStatus;
+import nordside.model.order.*;
 import nordside.model.price.PriceTable;
-import nordside.model.price.PriceVariant;
 import nordside.model.user.User;
 import nordside.repository.NomenclatureRepository;
 import nordside.repository.OrderRepository;
@@ -94,71 +90,68 @@ public class OrderService {
 
     private ClientOrder convertToClientOrder(ClientOrderTO clientOrderTO, User user){
 
-        List<ClientOrderLine> clientOrderLineList = clientOrderTO.getOrderLinesTable();
+        double totalAmount = 0.00 ,totalVolume = 0.00,totalWeight = 0.00;
 
-        Set<PriceTable> priceTableSet = new TreeSet<>();
-        for (ClientOrderLine clientOrderLine: clientOrderLineList){
-
-            Nomenclature nomenclature = nomenclatureRepository.findByName(clientOrderLine.getTitle()).orElse(null);
-            Assert.notNull(nomenclature,Messages.NOMENCLATURE_NOT_FOUND);
-
-            PriceTable priceTable = new PriceTable(
-                    user.getPriceVariant(),
-                    nomenclature,
-                    clientOrderLine.getUnit(),
-                    clientOrderLine.getPrice(),
-                    clientOrderLine.getCount(),
-                    clientOrderLine.getSumma()
-            );
-            priceTableSet.add(priceTable);
-        }
-
-        ClientOrder clientOrder = new ClientOrder(clientOrderTO.getDate(),
+        ClientOrder clientOrder = new ClientOrder(new Date(),
                 "",
                 user,
-                clientOrderTO.getTotalAmount(),
-                clientOrderTO.getTotalVolume(),
-                clientOrderTO.getTotalWeight(),
+                totalAmount,
+                totalVolume,
+                totalWeight,
                 OrderStatus.NEW,
-                priceTableSet);
+                null);
 
+        List<ClientOrderLineTO> clientOrderLineList = clientOrderTO.getOrderLinesTable();
+
+        Set<ClientOrderLine> clientOrderLineSet = new TreeSet<>();
+        for (ClientOrderLineTO clientOrderLineTO: clientOrderLineList){
+
+            Nomenclature nomenclature = nomenclatureRepository.findByName(clientOrderLineTO.getTitle()).orElse(null);
+            Assert.notNull(nomenclature,Messages.NOMENCLATURE_NOT_FOUND);
+
+            if (nomenclature.getCountInPack() != 0) {
+                totalWeight += nomenclature.getPackWeight() / nomenclature.getCountInPack();
+                totalVolume += nomenclature.getPackVolume() / nomenclature.getCountInPack();
+            }
+
+            ClientOrderLine clientOrderLine = new ClientOrderLine(
+                    clientOrder,
+                    nomenclature,
+                    clientOrderLineTO.getUnit(),
+                    clientOrderLineTO.getCount(),
+                    clientOrderLineTO.getSumma()
+            );
+            totalAmount += clientOrderLineTO.getSumma();
+            clientOrderLineSet.add(clientOrderLine);
+        }
+
+        clientOrder.setClientOrderLineTable(clientOrderLineSet);
+        clientOrder.setTotalAmount(totalAmount);
+        clientOrder.setTotalVolume(totalVolume);
+        clientOrder.setTotalWeight(totalWeight);
 
         return clientOrder;
     }
 
     private ClientOrderTO convertToClientOrderTO(ClientOrder clientOrder){
 
-        Set<PriceTable> priceTableSet = clientOrder.getPriceTables();
+        Set<ClientOrderLine> clientOrderLines = clientOrder.getClientOrderLineTable();
 
-        List<ClientOrderLine> orderLinesTable = new ArrayList<>();
-        for (PriceTable priceTable: priceTableSet){
-            ClientOrderLine clientOrderLine = new ClientOrderLine(
-                    clientOrder.getNumber_For1c(),
-                    priceTable.getNomenclature().getName(),
-                    priceTable.getUnit(),
-                    priceTable.getCount(),
-                    priceTable.getSumma()
+        List<ClientOrderLineTO> clientOrderLineTOTable = new ArrayList<>();
+        for (ClientOrderLine clientOrderLine: clientOrderLines){
+            ClientOrderLineTO clientOrderLineTO = new ClientOrderLineTO(
+                    clientOrderLine.getNomenclature().getName(),
+                    clientOrderLine.getUnit(),
+                    clientOrderLine.getCount(),
+                    clientOrderLine.getSumma()
             );
-            orderLinesTable.add(clientOrderLine);
+            clientOrderLineTOTable.add(clientOrderLineTO);
         }
 
-        ClientOrderTO clientOrderTO = new ClientOrderTO(
-                clientOrder.getId().toString(),
+        return new ClientOrderTO(
                 clientOrder.getDate(),
-                clientOrder.getNumber_For1c(),
-                clientOrder.getTotalVolume(),
-                orderLinesTable
+                clientOrder.getTotalAmount(),
+                clientOrderLineTOTable
             );
-
-        return clientOrderTO;
     }
 }
-/*
-//code in 1c
-    private String code;
-    //nomenclature title
-    private String title;
-    private String unit;
-    private double count;
-    private double summa;
- */

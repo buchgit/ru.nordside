@@ -2,6 +2,7 @@ drop table if exists partners;
 drop table if exists nomenclature_cart_item;
 drop table if exists cart_items;
 drop table if exists order_merchandise;
+drop table if exists client_order_line;
 drop table if exists orders;
 drop table if exists price_table;
 DROP TABLE IF EXISTS nomenclature;
@@ -117,6 +118,20 @@ create table orders(
     foreign key (client) references users(id)
 );
 create unique index number_for1c_idx on orders(number_for1c);
+
+create table client_order_line
+(
+    id           integer primary key default nextval('global_seq'),
+    order_id     integer not null,
+    nomenclature_id integer not null,
+    unit         varchar not null,
+    count        double precision,
+    summa        double precision,
+    constraint nomenclature_order_number_idx unique (nomenclature_id, order_id),
+    foreign key (nomenclature_id) references nomenclature (id),
+    foreign key (order_id) references orders (id)
+);
+
 
 create table order_merchandise(
     id integer primary key default nextval('global_seq'),

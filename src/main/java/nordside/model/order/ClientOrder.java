@@ -39,17 +39,19 @@ public class ClientOrder extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name =   "order_merchandise",
-                        joinColumns = @JoinColumn(name="order_id"),
-                        inverseJoinColumns = @JoinColumn(name = "merchandise_id"))
-    private Set<PriceTable> priceTables;
+//    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name =   "order_merchandise",
+//                        joinColumns = @JoinColumn(name="order_id"),
+//                        inverseJoinColumns = @JoinColumn(name = "merchandise_id"))
+//    private Set<PriceTable> priceTables;
 
+    @OneToMany(mappedBy = "clientOrder", cascade = CascadeType.ALL)
+    private Set<ClientOrderLine> clientOrderLineTable;
 
     public ClientOrder() {
     }
 
-    public ClientOrder(Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<PriceTable> priceTables) {
+    public ClientOrder(Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<ClientOrderLine> clientOrderLineTable) {
         this.date = date;
         this.number_For1c = number_For1c;
         this.client = client;
@@ -57,10 +59,10 @@ public class ClientOrder extends AbstractBaseEntity {
         this.totalVolume = totalVolume;
         this.totalWeight = totalWeight;
         this.status = status;
-        this.priceTables = priceTables;
+        this.clientOrderLineTable = clientOrderLineTable;
     }
 
-    public ClientOrder(Integer id, Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<PriceTable> priceTables) {
+    public ClientOrder(Integer id, Date date, String number_For1c, User client, double totalAmount, double totalVolume, double totalWeight, OrderStatus status, Set<ClientOrderLine> clientOrderLineTable) {
         super(id);
         this.date = date;
         this.number_For1c = number_For1c;
@@ -69,7 +71,7 @@ public class ClientOrder extends AbstractBaseEntity {
         this.totalVolume = totalVolume;
         this.totalWeight = totalWeight;
         this.status = status;
-        this.priceTables = priceTables;
+        this.clientOrderLineTable = clientOrderLineTable;
     }
 
     public Date getDate() {
@@ -128,12 +130,12 @@ public class ClientOrder extends AbstractBaseEntity {
         this.status = status;
     }
 
-    public Set<PriceTable> getPriceTables() {
-        return priceTables;
+    public Set<ClientOrderLine> getClientOrderLineTable() {
+        return clientOrderLineTable;
     }
 
-    public void setPriceTables(Set<PriceTable> priceTables) {
-        this.priceTables = priceTables;
+    public void setClientOrderLineTable(Set<ClientOrderLine> clientOrderLineTable) {
+        this.clientOrderLineTable = clientOrderLineTable;
     }
 
     public void fillFrom(ClientOrder clientOrder){
@@ -144,6 +146,6 @@ public class ClientOrder extends AbstractBaseEntity {
         this.setTotalVolume(clientOrder.getTotalVolume());
         this.setTotalWeight(clientOrder.getTotalWeight());
         this.setStatus(clientOrder.getStatus());
-        this.setPriceTables(clientOrder.getPriceTables());
+        this.setClientOrderLineTable(clientOrder.getClientOrderLineTable());
     }
 }
