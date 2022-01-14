@@ -7,12 +7,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "client_order_line")
-public class ClientOrderLine extends AbstractBaseEntity {
+public class ClientOrderLine extends AbstractBaseEntity implements Comparable {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_id")
     private ClientOrder clientOrder;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "nomenclature_id")
     private Nomenclature nomenclature;
 
     @Column
@@ -80,5 +82,15 @@ public class ClientOrderLine extends AbstractBaseEntity {
 
     public void setSumma(double summa) {
         this.summa = summa;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        ClientOrderLine clientOrderLine = (ClientOrderLine) o;
+        if (this.summa - clientOrderLine.getSumma() == 0) {
+            return 1;
+        } else {
+            return (int)(this.summa - clientOrderLine.getSumma());
+        }
     }
 }

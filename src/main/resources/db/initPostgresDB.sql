@@ -117,7 +117,6 @@ create table orders(
     status varchar not null ,
     foreign key (client) references users(id)
 );
-create unique index number_for1c_idx on orders(number_for1c);
 
 create table client_order_line
 (

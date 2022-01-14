@@ -152,14 +152,13 @@ public class UserController {
     }
 
     @PostMapping(value = "order/create")
-    public ResponseEntity<String> createOrder(@Valid @RequestBody ClientOrderTO clientOrderTO, BindingResult result, @AuthenticationPrincipal LoggedUser loggedUser){
+    public String createOrder(@Valid @RequestBody ClientOrderTO clientOrderTO, BindingResult result, @AuthenticationPrincipal LoggedUser loggedUser){
         if (result.hasErrors()){
-            return getStringResponseEntity(result, logger);
+            return "Binding result error";
         }else {
-
             ClientOrder created = orderService.create(clientOrderTO, loggedUser);
             logger.info("created order number "+ created.getNumber_For1c());
-            return new ResponseEntity<> (HttpStatus.CREATED);
+            return (HttpStatus.CREATED.toString());
         }
     }
 
