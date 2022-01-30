@@ -32,8 +32,14 @@ public class OrderService {
     }
 
 
-    public List<ClientOrder> getAllOrders() {
-        return orderRepository.findAll();
+    public List<ClientOrderTO> getAllOrders() {
+        List<ClientOrder> clientOrderList = orderRepository.findAll();
+        List<ClientOrderTO> clientOrderTOList = new ArrayList<>();
+        for (ClientOrder clientOrder:clientOrderList){
+            ClientOrderTO clientOrderTO = convertToClientOrderTO(clientOrder);
+            clientOrderTOList.add(clientOrderTO);
+        }
+        return clientOrderTOList;
     }
 
     public List<ClientOrderTO> getOrdersByEmail(String email) {

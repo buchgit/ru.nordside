@@ -28,8 +28,8 @@ public class ClientOrderTO {
         return summa;
     }
 
-    public void setSumma(Double summa) {
-        this.summa = summa;
+    public void setSumma(Double totalAmount) {
+        this.summa = totalAmount;
     }
 
     public List<ClientOrderLineTO> getOrderLinesTable() {

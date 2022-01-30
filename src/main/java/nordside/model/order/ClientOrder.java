@@ -45,7 +45,7 @@ public class ClientOrder extends AbstractBaseEntity {
 //                        inverseJoinColumns = @JoinColumn(name = "merchandise_id"))
 //    private Set<PriceTable> priceTables;
 
-    @OneToMany(mappedBy = "clientOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clientOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ClientOrderLine> clientOrderLineTable;
 
     public ClientOrder() {

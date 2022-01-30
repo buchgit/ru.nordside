@@ -136,7 +136,7 @@ public class UserController {
 
     //clientOrders
     @GetMapping(value = "order/all")
-    public List<ClientOrder> getAllOrders(){
+    public List<ClientOrderTO> getAllOrders(){
         return orderService.getAllOrders();
     }
 
