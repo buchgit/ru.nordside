@@ -126,7 +126,6 @@ create table client_order_line
     unit         varchar not null,
     count        double precision,
     summa        double precision,
-    constraint nomenclature_order_number_idx unique (nomenclature_id, order_id),
     foreign key (nomenclature_id) references nomenclature (id),
     foreign key (order_id) references orders (id)
 );
